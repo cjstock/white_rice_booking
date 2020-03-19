@@ -6,3 +6,7 @@ Corey Stock
 Justin Tran
 William Yung
 Timothy Bui
+
+Platform(s) used: VSCode
+
+Language(s) used: C#
