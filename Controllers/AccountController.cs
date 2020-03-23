@@ -10,19 +10,19 @@ namespace white_rice_booking.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CreateAccountController : ControllerBase
+    public class AccountController : ControllerBase
     {
 
         private readonly List<UserAccount> _userAccounts = new List<UserAccount>();
-        private readonly ILogger<CreateAccountController> _logger;
+        private readonly ILogger<AccountController> _logger;
 
-        public CreateAccountController(ILogger<CreateAccountController> logger)
+        public AccountController(ILogger<AccountController> logger)
         {
             _logger = logger;
         }
 
         [HttpPost("{email}")]
-        [Route("Account")]
+        [Route("CreateAccount")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<UserAccount> Create(string email)
