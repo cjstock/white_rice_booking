@@ -5,6 +5,12 @@ namespace white_rice_booking
 {
     public class Reservation
     {
-        //Contains attributes of a Reservation
+        public int ID { get; set; }
+        public string PassengerFN { get; set; }
+        public string PassengerLN { get; set; }
+        public int OutboundFlightID { get; set; }
+        public int InboundFlightID { get; set; }
+        public int UserAccountID { get; set; }
+
     }
 }
