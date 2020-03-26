@@ -12,10 +12,14 @@ namespace white_rice_booking.Controllers
     [Route("[controller]")]
     public class AccountController : ControllerBase
     {
-
-        private readonly List<UserAccount> _userAccounts = new List<UserAccount>();
+        // TODO: Creates a login token used to validate the user is logged in
+        private readonly int _loginToken = 0;
         private readonly ILogger<AccountController> _logger;
 
+
+        /* Handles requests for dealing with UserAccounts,
+        including logging in, creating an account, and modifying
+        account info */
         public AccountController(ILogger<AccountController> logger)
         {
             _logger = logger;
@@ -25,6 +29,9 @@ namespace white_rice_booking.Controllers
         [Route("CreateAccount")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        /* Use the entered email and password to create a new UserAccount,
+        then push the account to the database */
         public ActionResult<UserAccount> Create(string email)
         {
             UserAccount newUser = new UserAccount();
@@ -32,6 +39,21 @@ namespace white_rice_booking.Controllers
             newUser.Password = "password";
 
             return CreatedAtAction(nameof(newUser), newUser);
+        }
+
+        /* When "login" button is pressed, log the user in by giving them a
+        login token */
+        public ActionResult<UserAccount> Login(string email, string password)
+        {
+            return null;
+        }
+
+        /* When the user presses the "modify info" button, take the changed
+        fields and push them to the database */
+        public ActionResult<UserAccount> ModifyInfo(string email)
+        {
+            
+            return null;
         }
     }
 }
