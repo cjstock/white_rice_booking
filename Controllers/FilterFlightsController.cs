@@ -36,17 +36,31 @@ namespace white_rice_booking
             _logger = logger;
         }
 
-        public void FilterFlights()
-        {
-            FilterOutgoing();
+        [HttpGet]
+        [Route("filter/{trip_type}")]
+        public Boolean FilterFlights(string trip_type)
+        {   
+            //Console.WriteLine("One Way(O) or Round Trip(R)?");
+            //trip_type = Console.ReadLine();
+            if(trip_type == "O") twoway = false;
+            else twoway = true;
+
+            //return trip_type;
+
+            return FilterOutgoing();
         }
 
-        public void FilterOutgoing()
+        [HttpGet]
+        public Boolean FilterOutgoing()
         {
-            // if (twoway)
-            // {
-            //     FilterIncoming( Outgoing information);
-            // }
+             /*if (twoway)
+             {
+                 //FilterIncoming( Outgoing information);
+                 Console.WriteLine("Round Trip Confirmed");
+             }
+             else Console.WriteLine("One Way Trip Confirmed");*/
+    
+             return twoway;
 
         }
 
