@@ -37,30 +37,34 @@ namespace white_rice_booking
         }
 
         [HttpGet]
-        [Route("filter/{trip_type}")]
-        public Boolean FilterFlights(string trip_type)
+        [Route("filter/{trip_type}/{depart_loc}")]
+        public String FilterFlights(string trip_type, string depart_loc)
         {   
-            //Console.WriteLine("One Way(O) or Round Trip(R)?");
-            //trip_type = Console.ReadLine();
-            if(trip_type == "O") twoway = false;
-            else twoway = true;
+
+            if (trip_type == "O") twoway = false;
+            else if (trip_type == "T") twoway = true;
 
             //return trip_type;
 
-            return FilterOutgoing();
+            return FilterOutgoing(depart_loc);
+
+
         }
 
         [HttpGet]
-        public Boolean FilterOutgoing()
+        [Route("out_filter/{depart_loc}")]
+        public String FilterOutgoing(string depart_loc)
         {
-             /*if (twoway)
+             if (twoway)
              {
-                 //FilterIncoming( Outgoing information);
-                 Console.WriteLine("Round Trip Confirmed");
+                 //return FilterIncoming();
+                 //return twoway;
+                 if(depart_loc == "LAX") return "Los Angeles International Airport";
+                 else return "No Airport Selected for round trip";  
              }
-             else Console.WriteLine("One Way Trip Confirmed");*/
+             else return "No Airport Selected for one way trip";
     
-             return twoway;
+             
 
         }
 
