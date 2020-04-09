@@ -23,20 +23,26 @@ namespace white_rice_booking.Controllers
         }
 
         /* Create a new reservation using the flightID */
-        public ActionResult<Reservation> Create(int flightID, int userID)
+        public Boolean Create(int flightID, int userID)
         {
-            return null;
+            Reservation newReservation = new Reservation();
+            //newReservation.flightID = flightID;
+            newReservation.UserAccountID = userID;
+            return true;
         }
 
         /* Use the flightID to cancel the reservation */
         public ActionResult<Reservation> Cancel(int flightID, int userID)
         {
+            
             return null;
         }
 
         /* Create a new reservation and then cancel the old one */
         public ActionResult<Reservation> Modify(int flightID, int userID)
         {
+            Cancel(flightID, userID);
+            Create(flightID, userID);
             return null;
         }
     }
