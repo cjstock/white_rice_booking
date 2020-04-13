@@ -22,6 +22,7 @@ using Microsoft.Extensions.Logging;
 using CsvHelper;
 using System.IO;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace white_rice_booking
 {
@@ -36,14 +37,22 @@ namespace white_rice_booking
         public string State { get; set; }
 
         // Outgoing variables
-        public string outgoingAirportCode { get; set; }
-        public string outgoingAirportName { get; set; }
+        public int outgoingDepartAirportCode { get; set; }
+        public int outgoingArrivalAirportCode { get; set; }
+        public string outgoingDepartAirportName { get; set; }
+        public string outgoingArrivalAirportName { get; set; }
+        public int outgoingRouteID { get; set; }
+
         public DateTime outgoingDepart { get; set; }
         public DateTime outgoingArrival { get; set; }
 
         // Incoming variables
-        public string incomingAirportCode { get; set; }
-        public string incomingAirportName { get; set; }
+        public int incomingDepartAirportCode { get; set; }
+        public int incomingArrivalAirportCode { get; set; }
+        public string incomingDepartAirportName { get; set; }
+        public string incomingArrivalAirportName { get; set; }
+        public int incomingRouteID { get; set; }
+
         public DateTime incomingDepart { get; set; }
         public DateTime incomingArrival { get; set; }
 
@@ -54,187 +63,185 @@ namespace white_rice_booking
 
         /*
             Name: Filter Flights
-            Date Last Updated: 4-11-2020
+            Date Last Updated: 4-13-2020
             Last Updated Programmer Name: William Yung
-            Description: This function checks if the user wants a round trip or 
-                         one way flight and takes in the departure and arrival 
-                         location for other functions to use
+            Description: This function checks if the user wants a round trip or one way flight and 
+            takes in the departure & arrival airports, date leaving and if round trip date returning. 
+            It then calls all the functions needed to filter for a list of viable flights
         */
         [HttpGet]
-        [Route("filter/{trip_type}/{depart_loc}/{arrival_loc}/{date}")]
-        public String FilterFlights(string trip_type, string depart_loc, 
-                                    string arrival_loc, string date)
+        [Route("filter/{trip_type}/{depart_loc}/{arrival_loc}/{outgoing_date}/{incoming_date}")]
+        public List<Flights> FilterFlights(string trip_type, string depart_loc, string arrival_loc, 
+                                    string outgoing_date, string incoming_date)
         {   
-            String t_type = " ";
+            //String t_type = " ";
+            List<Flights> outgoingList;
+            List<Flights> incomingList;
 
             // Compares input to set type of trip as round trip or one way
             if (trip_type == "O") { 
                 twoway = false;
-                t_type = "One Way Trip";
+                //t_type = "One Way Trip";
                 }
 
             else if (trip_type == "T"){
                 twoway = true;
-                t_type = "Round Trip";
+                //t_type = "Round Trip";
             } 
 
-            return "Trip Type: " + t_type + "\n" 
-                        + FilterOutgoingAirport(depart_loc, arrival_loc, date);
+            // Functions called to acquire the data needed to filter the flights
+            FilterOutgoingDepartAirport(depart_loc);
+            FilterOutgoingArrivalAirport(arrival_loc);
+            
+            outgoingRouteID = FilterRoute(outgoingDepartAirportCode, outgoingArrivalAirportCode);
+            if(twoway) incomingRouteID = FilterRoute(incomingDepartAirportCode, incomingArrivalAirportCode);
+
+            // Gets the list of available flights based on inputs
+            outgoingList = FilterDate(outgoingRouteID,outgoing_date);
+            
+            /*string temp_list = "\n\nDepart Options\n";
+                for (int i = 0; i < outgoingList.Count(); i++){
+                    temp_list = temp_list + "\n" + outgoingList[i];
+                }*/
+            
+            if(twoway){ 
+                incomingList = FilterDate(incomingRouteID, incoming_date);
+                /*temp_list = temp_list + "\nReturn Options\n";
+                for (int i = 0; i < incomingList.Count(); i++){
+                    temp_list = temp_list + "\n" + incomingList[i];
+                }*/
+                return (outgoingList.Concat(incomingList).ToList());
+            }
+
+            /*if(twoway) return "Trip Type: " + t_type + "\n\nOutgoing Departure Airport: " + outgoingDepartAirportName
+                    + "\nOutgoing Arrival Airport: " + outgoingArrivalAirportName + "\n\nIncoming Departure Airport: " 
+                    + incomingDepartAirportName + "\nIncoming Arrival Airport: " + incomingArrivalAirportName + temp_list;
+            
+            else return "Trip Type: " + t_type + "\n\nOutgoing Departure Airport: " + outgoingDepartAirportName
+                    + "\nOutgoing Arrival Airport: " + outgoingArrivalAirportName + temp_list;*/
+                return (outgoingList);
+
         }
 
         /*
-            Name: Filter Outgoing Airport
-            Date Last Updated: 4-11-2020
+            Name: Filter Outgoing Depart Airport
+            Date Last Updated: 4-13-2020
             Last Updated Programmer Name: William Yung
-            Description: This function opens the database looks for the airport 
-                         that the user wants to leave from and gets the airport 
-                         id from it.
+            Description: This function opens the database looks for the airport that the user wants 
+            to leave from and gets the airport id from it.
         */
         [HttpGet]
-        public String FilterOutgoingAirport(string depart_loc, string arrival_loc, string date)
+        public void FilterOutgoingDepartAirport(string depart_loc)
         {
             // Sets up the reader to read from the csv file
             using (var airport_reader = new StreamReader("database\\top_10_airports.csv"))
             using (var csv = new CsvReader(airport_reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<Airport>();
-                // Loops through the file to look for the departure airport 
-                // based on user input
+                // Loops through the file to look for the departure airport based on user input
                 foreach (var record in records)
                 {
-                    // Checks if input matches in database and return the departure airport 
-                    // information and then calls the function to get the arrival airport information
-                    if(depart_loc == record.IATA) 
-                        return "\n\nDeparture\nAirport ID: " 
-                            + record.OpenFlights_ID + "\nAirport Name: " 
-                            + record.Airport_Name + "\nCity Name: " 
-                            + record.City_Name + "\n" 
-                            + FilterOutgoingArrivalAirport(record.OpenFlights_ID, arrival_loc, date);     
+                    // Checks if input matches in database and stores the departure airport id in a variable
+                    if(depart_loc == record.IATA) {
+                        outgoingDepartAirportCode = record.OpenFlights_ID;
+                        outgoingDepartAirportName = record.Airport_Name;
+                        // If it is a round trip then store the outgoing departure airport id as
+                        // incoming arrival airport id
+                        if(twoway){
+                            incomingArrivalAirportCode = record.OpenFlights_ID;
+                            incomingArrivalAirportName = record.Airport_Name;
+                        }
+                    }    
                 }
-                return "Incorrect Name Entered";
             }
         }
 
         /*
             Name: Filter Outgoing Arrival Airport
-            Date Last Updated: 4-11-2020
+            Date Last Updated: 4-13-2020
             Last Updated Programmer Name: William Yung
-            Description: This function opens the database looks for the airport 
-                         that the user wants to arrive at and gets the airport 
-                         id from it.
+            Description: This function opens the database looks for the airport that the user wants 
+            to arrive at and gets the airport id from it.
         */
         [HttpGet]
-        public String FilterOutgoingArrivalAirport(int depart_loc_ID, string arrival_loc, string date)
+        public void FilterOutgoingArrivalAirport(string arrival_loc)
         {
             // Sets up the reader to read from the csv file
             using (var airport_reader = new StreamReader("database\\top_10_airports.csv"))
             using (var csv = new CsvReader(airport_reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<Airport>();
-                // Loops through the file to look for the departure airport 
-                // based on user input
+                // Loops through the file to look for the departure airport based on user input
                 foreach (var record in records)
                 {
-                    // Checks if input matches in database and if it is a round trip or one way trip
-                    // and returns the arrival airport information, then calls the function
-                    // to get the flight route information, and then calls the function to get
-                    // the return trip route information if it is a round trip 
-                    if(arrival_loc == record.IATA && twoway) 
-                        return "\n\nArrival\nAirport ID: " + record.OpenFlights_ID 
-                            + "\nAirport Name: " + record.Airport_Name 
-                            + "\nCity Name: " + record.City_Name + "\n\nOutgoing " 
-                            + FilterRoute(depart_loc_ID, record.OpenFlights_ID, date) + "\n"
-                            + FilterIncoming(record.OpenFlights_ID, depart_loc_ID, date); 
-                    
-                    else if(arrival_loc == record.IATA && !twoway) 
-                        return "\n\nArrival\nAirport ID: " + record.OpenFlights_ID 
-                            + "\nAirport Name: " + record.Airport_Name + "\nCity Name: " 
-                            + record.City_Name + "\n\nOutgoing " 
-                            + FilterRoute(depart_loc_ID, record.OpenFlights_ID, date);   
+                    // Checks if input matches in database and stores the arrival airport id in a variable
+                    if(arrival_loc == record.IATA) {
+                        outgoingArrivalAirportCode = record.OpenFlights_ID;
+                        outgoingArrivalAirportName = record.Airport_Name;
+                        // If it is a round trip then store the outgoing arrival airport id as
+                        // incoming departure airport id
+                        if(twoway){
+                            incomingDepartAirportCode = record.OpenFlights_ID;
+                            incomingDepartAirportName = record.Airport_Name;
+                        }
+                    }
                 }
-                return "Incorrect Name Entered";
             }
         }
 
         /*
             Name: Filter Route
-            Date Last Updated: 4-11-2020
+            Date Last Updated: 4-13-2020
             Last Updated Programmer Name: William Yung
-            Description: This function opens the database looks for the flight 
-                         route from the departure airport to the arrival airport 
-                         by using the ids obtained from the previous 2 functions
+            Description: This function opens the database looks for the flight route from the departure 
+            airport to the arrival airport by using the ids obtained from the previous 2 functions
         */
         [HttpGet]
-        public String FilterRoute(int depart_loc_ID, int arrival_loc_ID, string date)
+        public int FilterRoute(int depart_ID, int arrival_ID)
         {
             // Sets up the reader to read from the csv file
             using (var route_reader = new StreamReader("database\\top_10_routes.csv"))
             using (var csv = new CsvReader(route_reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<Routes>();
-                // Loops through the file to look for the departure airport 
-                // based on user input
+                // Loops through the file to look for the departure airport based on user input
                 foreach (var record in records)
                 {
                     // Checks if the departure airport ID and arrival airport ID match in the 
                     // database then returns the id of the route
-                    if(depart_loc_ID == record.Source_OpenFlights_ID 
-                        && arrival_loc_ID == record.Destination_OpenFlights_ID)
-                        return "Route\nRoute ID: " + record.Route_ID + "\nDeparture: " 
-                            + record.Source_IATA + "\nArrival: " + record.Destination_IATA
-                            + FilterDate(record.Route_ID, date);
+                    if(depart_ID == record.Source_OpenFlights_ID && arrival_ID == record.Destination_OpenFlights_ID){
+                            return record.Route_ID;
+                    }
                 }
-                return "Route Does Not Exist";
+                return 0;
             }
         }
 
         /*
             Name: Filter Date
-            Date Last Updated: 4-11-2020
+            Date Last Updated: 4-13-2020
             Last Updated Programmer Name: William Yung
-            Description: This function takes in the route id and date that the user wants to
-            depart and provides a list of flights that are available that day
+            Description: This function uses the route id obtained from previous functions and the date 
+            that the user wants to depart and provides a list of flights that are available that day
         */
-        public String FilterDate(int route_ID, string date){
+        public List<Flights> FilterDate(int route_id, string date){
             // Sets up the reader to read from the csv file
             using (var flight_reader = new StreamReader("database\\flights.csv"))
             using (var csv = new CsvReader(flight_reader, CultureInfo.InvariantCulture))
             {
-                List<string> flights_list = new List<string>();
+                List<Flights> flights_list = new List<Flights>();
                 var records = csv.GetRecords<Flights>();
-                // Loops through the file to look for the departure airport 
-                // based on user input
+                // Loops through the file to look for the departure airport based on user input
                 foreach (var record in records)
                 {
                     // Checks if the departure airport ID and arrival airport ID match in the 
                     // database then returns the id of the route
-                    if(route_ID == record.Route_ID 
-                        && date == record.Date)
+                    if(route_id == record.Route_ID && date == record.Date)
                         // Stores all data that matches in a list
-                        flights_list.Add("Flight ID: " + record.Flight_ID + "\nDate: " 
-                            + record.Date + "\nTime: " + record.Time + "\n");
+                        flights_list.Add(record);
                 }
-                string temp_list = "";
-                for (int i = 0; i < flights_list.Count(); i++){
-                    temp_list = temp_list + "\n" + flights_list[i];
-                }
-                return "\n\nAvailable Flights\n" + temp_list;
+                return flights_list;
             }
-        }
-
-        /*
-            Name: Filter Incoming
-            Date Last Updated: 4-11-2020
-            Last Updated Programmer Name: William Yung
-            Description: This function calls the Filter Route function to get 
-                         the route id for the return trip
-        */
-        [HttpGet]
-        public String FilterIncoming(int depart_loc_ID, int arrival_loc_ID, string date)
-        {
-            // Calls the Filter Route function with the departure and arrival ids flipped to look 
-            // for the return route id  
-            return "\nReturning " + FilterRoute(depart_loc_ID, arrival_loc_ID, date);
         }
     }
 }
