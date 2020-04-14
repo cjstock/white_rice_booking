@@ -24,6 +24,17 @@ a {
   border-color: #1861ac;
 }
 
+/* Position contents on left side of navigation bar */
+.nav-left {
+  float: left;
+}
+
+/* Position contents on right side of navigation bar */
+.nav-right {
+  float: right;
+}
+
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -63,7 +74,7 @@ body {
   margin-bottom: 60px;
 }
 
-/* Formatting for contents in footer/bottom of web page */
+/* Formatting of contents in footer/bottom of web page */
 .footer {
   position: absolute;
   bottom: 0;
@@ -72,35 +83,3 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
-
-
-
-
-
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
-
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.topnav a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.topnav-right {
-  float: right;
-}
