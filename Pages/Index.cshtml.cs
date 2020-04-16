@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-//using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 
 
-
+/*
 namespace white_rice_booking.Pages
 {
     public class IndexModel : PageModel
@@ -21,8 +21,10 @@ namespace white_rice_booking.Pages
         }
     }
 }
+*/
 
-/*
+
+
 namespace white_rice_booking.Pages
 {
     public class IndexModel : PageModel
@@ -40,4 +42,3 @@ namespace white_rice_booking.Pages
         }
     }
 }
-*/

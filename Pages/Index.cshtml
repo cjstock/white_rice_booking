@@ -1,84 +1,114 @@
 @page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Book Flights page";
 }
 
+@*
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
-
-
-@*
-@page
-@using RazorPagesIntro.Pages
-@model Index2Model
-
-WORKING
-<h2>Separate page model</h2>
-<p>
-    @Model.Message
-</p>git
 *@
 
-@* WORKING
-<h2>Wassup y'all</h2>
-<p>
-    @Model.Message
-</p>git
-*@
+<div class="text-center">
+    <form action="/action_page.php" method="post">
+        <!-- Dropdown menu for Trip Type (Round Trip or One-way) -->
+        <div class="item">
+            <!-- <label for="">Choose a car:</label> -->
+            <select id="trip_type">
+                <option selected value="" disabled>Trip Type</option>
+                <option value="round_trip">Round Trip</option>
+                <option value="one_way">One Way</option>
+            </select>
 
-
-@*
-@page
-@model RazorPagesContacts.Pages.Customers.IndexModel
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
-<h1>Contacts home page</h1>
-<form method="post">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var contact in Model.Customer)
-            {
-                <tr>
-                    <td> @contact.Id  </td>
-                    <td>@contact.Name</td>
-                    <td>
-                        <a asp-page="./Edit" asp-route-id="@contact.Id">Edit</a> |
-                        <button type="submit" asp-page-handler="delete"
-                                asp-route-id="@contact.Id">delete
-                        </button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <a asp-page="Create">Create New</a>
-</form>
-*@
+    <!-- DELETE <br><br> LATER (IF TIME PERMITS) -->
+            <br><br>
+        </div>
 
 
 
+        <!-- Dropdown menu for Departing Location (Airport Name) -->
+        <div class="item">
+            <!-- <label for="">Choose a car:</label> -->
+            <select id="dep_loc_airport">
+                <option selected value="" disabled>Departing Location</option>
+                <option value="sanfran_ca">San Francisco International Airport</option>
+                <option value="losangeles_ca">Los Angeles International Airport</option>
 
-@*
-@{
-    var quote = "The future depends on what you do today. - Mahatma Gandhi";
-}
+                <option value="seattle_wa">Seattle Tacoma International Airport</option>
+                <option value="dallas_tx">Dallas Fort Worth International Airport</option>
 
-<p>@quote</p>
+                <option value="atlanta_ga">Hartsfield Jackson Atlanta International Airport</option>
+                <option value="denver_co">Denver International Airport</option>
 
-@{
-    quote = "Hate cannot drive out hate, only love can do that. - Martin Luther King, Jr.";
+                <option value="queens_ny">John F Kennedy International Airport</option>
+                <option value="chicago_il">Chicago O'Hare International Airport</option>
 
-    @Model.Message
-}
+                <option value="lasvegas_nv">McCarran International Airport</option>
+                <option value="orlando_fl">Orlando International Airport</option>
+            </select>
 
-<p>@quote</p>
-*@
+    <!-- DELETE <br><br> LATER (IF TIME PERMITS) -->
+            <br><br>
+        </div>
+
+
+
+        <!-- Dropdown menu for Arrival Location (Airport Name) -->
+        <div class="item">
+            <!-- <label for="">Choose a car:</label> -->
+            <select id="arr_loc_airport">
+                <option selected value="" disabled>Arrival Location</option>
+                <option value="sanfran_ca">San Francisco International Airport</option>
+                <option value="losangeles_ca">Los Angeles International Airport</option>
+
+                <option value="seattle_wa">Seattle Tacoma International Airport</option>
+                <option value="dallas_tx">Dallas Fort Worth International Airport</option>
+
+                <option value="atlanta_ga">Hartsfield Jackson Atlanta International Airport</option>
+                <option value="denver_co">Denver International Airport</option>
+
+                <option value="queens_ny">John F Kennedy International Airport</option>
+                <option value="chicago_il">Chicago O'Hare International Airport</option>
+
+                <option value="lasvegas_nv">McCarran International Airport</option>
+                <option value="orlando_fl">Orlando International Airport</option>
+            </select>
+
+    <!-- DELETE <br><br> LATER (IF TIME PERMITS) -->
+            <br><br>
+        </div>
+
+
+
+        <!-- Input box for Depart Date -->
+        <div class="item">
+            <label for="depart_date">Depart Date:</label>
+
+    <!-- DELETE <br> LATER (IF TIME PERMITS) -->
+            <br>
+            <input id="depart_date" type="date" name="depart_date" />
+            <i class="fas fa-calendar-alt"></i>
+    <!-- DELETE <br><br> LATER (IF TIME PERMITS) -->
+            <br><br>
+        </div>
+
+
+
+        <!-- Input box for Return Date -->
+        <div class="item">
+            <label for="return_date">Return Date:</label>
+
+    <!-- DELETE <br> LATER (IF TIME PERMITS) -->
+            <br>
+            <input id="return_date" type="date" name="return_date" />
+            <i class="fas fa-calendar-alt"></i>
+        </div>
+        
+    <!-- DELETE <br><br> LATER (IF TIME PERMITS) -->
+        <br><br>              
+
+        <input type="submit" value="Submit">
+    </form>
+</div>

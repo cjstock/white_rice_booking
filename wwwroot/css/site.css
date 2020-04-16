@@ -24,16 +24,17 @@ a {
   border-color: #1861ac;
 }
 
-/* Position contents on left side of navigation bar */
+.navbar-brand {
+  clear:both;
+}
+
 .nav-left {
   float: left;
 }
 
-/* Position contents on right side of navigation bar */
 .nav-right {
   float: right;
 }
-
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -74,7 +75,7 @@ body {
   margin-bottom: 60px;
 }
 
-/* Formatting of contents in footer/bottom of web page */
+/* Formatting for contents in footer/bottom of web page */
 .footer {
   position: absolute;
   bottom: 0;

@@ -28,17 +28,61 @@
                         </li>
                     </ul>
                 </div>
+                -->
+
+                 
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        
+                        <!-- List of items on left side of navigation bar -->
+                        <li class="nav-left">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Book</a>
+                        </li>
+                        <li class="nav-left">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/My_Trips">My Trips</a>
+                        </li>
+                        <li class="nav-left">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Flight_Status">Flight Status</a>
+                        </li>
+
+                    </ul>
+                </div>
                 
-                
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        
+                        <!-- List of items on left side of navigation bar -->
+                        <li class="nav-right">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/SignUp">Sign Up</a>
+                        </li>
+                        <li class="nav-right">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/LogIn">Log In</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+
+
+
             </div>
         </nav>
     </header>
+
+
+
+
     
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+
         </main>
     </div>
+
+
+
+
+
     
 
     <footer class="border-top footer text-muted">
@@ -50,3 +94,4 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
