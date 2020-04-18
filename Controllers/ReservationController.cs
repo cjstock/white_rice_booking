@@ -77,7 +77,7 @@ namespace white_rice_booking.Controllers
 
         /* Create a new reservation and then cancel the old one */
         [HttpGet]
-        [Route("modify/{firstName}/{lastName}/{departID}/{returnID}/{userID}")]
+        [Route("modify/{reservationID}/{departID}/{returnID}")]
         public ActionResult<Reservation> Modify(int reservationID, int departID, int returnID)
         {
             string firstName = "";
