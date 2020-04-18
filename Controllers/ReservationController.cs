@@ -45,6 +45,11 @@ namespace white_rice_booking.Controllers
             Create(flightID, userID);
             return null;
         }
+        //billing info
+
+        //generate unique reservation ID
+
+        //ask for user info
     }
 
 
