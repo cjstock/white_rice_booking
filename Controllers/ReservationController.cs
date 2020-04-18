@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using CsvHelper;
+using System.IO;
+using System.Globalization;
+using Newtonsoft.Json;
 
 namespace white_rice_booking.Controllers
 {
@@ -14,6 +18,7 @@ namespace white_rice_booking.Controllers
     public class ReservationController : ControllerBase
     {
         //Controls all actions asociated with Reservations
+        int reservation_ID = 1000000; //increment by 1 for every new reservation created
 
         private readonly ILogger<ReservationController> _logger;
 
@@ -28,6 +33,8 @@ namespace white_rice_booking.Controllers
             Reservation newReservation = new Reservation();
             //newReservation.flightID = flightID;
             newReservation.UserAccountID = userID;
+            newReservation.reservationID = reservation_ID;
+
             return true;
         }
 
@@ -39,9 +46,9 @@ namespace white_rice_booking.Controllers
         }
 
         /* Create a new reservation and then cancel the old one */
-        public ActionResult<Reservation> Modify(int flightID, int userID)
+        public ActionResult<Reservation> Modify(int reservationID, int flightID, int userID)
         {
-            Cancel(flightID, userID);
+            Cancel(reservationID, userID);
             Create(flightID, userID);
             return null;
         }

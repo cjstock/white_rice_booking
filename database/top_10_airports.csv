@@ -1,0 +1,11 @@
+OpenFlights_ID,Airport_Name,City_Name,IATA,Timezone,Timezone_Name
+3469,San Francisco International Airport,San Francisco,SFO,-8,America/Los_Angeles
+3484,Los Angeles International Airport,Los Angeles,LAX,-8,America/Los_Angeles
+3577,Seattle Tacoma International Airport,Seattle,SEA,-8,America/Los_Angeles
+3670,Dallas Fort Worth International Airport,Dallas-Fort Worth,DFW,-6,America/Chicago
+3682,Hartsfield Jackson Atlanta International Airport,Atlanta,ATL,-5,America/New_York
+3751,Denver International Airport,Denver,DEN,-7,America/Denver
+3797,John F Kennedy International Airport,New York,JFK,-5,America/New_York
+3830,Chicago O'Hare International Airport,Chicago,ORD,-6,America/Chicago
+3877,McCarran International Airport,Las Vegas,LAS,-8,America/Los_Angeles
+3878,Orlando International Airport,Orlando,MCO,-5,America/New_York
