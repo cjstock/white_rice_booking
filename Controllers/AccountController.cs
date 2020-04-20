@@ -10,6 +10,9 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Web;
+using System.Net;
+using System.Net.Http;
+using white_rice_booking.Models;
 
 namespace white_rice_booking.Controllers
 {
@@ -21,7 +24,7 @@ namespace white_rice_booking.Controllers
         private readonly int _loginToken;
 
         private static List<UserAccount> _users;
-        private string _db = @"database/user_accounts.json";
+        private string _db = @"data/user_accounts.json";
         
         private int _userID;
         private readonly ILogger<AccountController> _logger;
@@ -37,12 +40,13 @@ namespace white_rice_booking.Controllers
             _userID = InitUserID();
         }
 
+        [ActionName("Create")]
         [HttpPost("{emailAddress}")]
-        [Route("Create/{emailAddress}")]
+        [Route("Create/{emailAddress}/{password}")]
 
         /* Use the entered email and password to create a new UserAccount,
         then push the account to the database */
-        public bool Create(string emailAddress)
+        public bool Create(string emailAddress, string password)
         {
             if (CheckEmailExists(emailAddress))
             {
@@ -51,7 +55,7 @@ namespace white_rice_booking.Controllers
             UserAccount newUser = new UserAccount();
             newUser.ID = _userID++;
             newUser.Email = emailAddress;
-            newUser.Password = "Password";
+            newUser.Password = password;
             _users.Add(newUser);
             
             //Write modified _users to the database

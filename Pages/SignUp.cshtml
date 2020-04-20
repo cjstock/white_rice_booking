@@ -1,0 +1,23 @@
+@page
+@model SignUpModel
+@addTagHelper *, Microsoft.AspNetCore.Mcv.TagHelpers
+@{
+    ViewData["Title"] = "Sign Up"; // Adds "My Trips" to ViewData dictionary
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    @Model.Message
+</p>
+
+<form method="post">
+    <div>
+    Email:
+    <input asp-for="@Model.UserAccount.Email" />
+    </div>
+    <div>
+    Password:
+    <input asp-for="@Model.UserAccount.Password" />
+    </div>
+
+    <input type="submit"/>
+</form>
