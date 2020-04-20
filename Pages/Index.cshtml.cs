@@ -5,24 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-
-
-/*
-namespace white_rice_booking.Pages
-{
-    public class IndexModel : PageModel
-    {
-        public string Message { get; private set; } = "PageModel in C#";
-
-        public void OnGet()
-        {
-            //Message += $"Hello world!";
-            Message += $" Server time is { DateTime.Now }";
-        }
-    }
-}
-*/
-
+using white_rice_booking.Controllers;
+using white_rice_booking.Models;
+using white_rice_booking.Services;
 
 
 namespace white_rice_booking.Pages
@@ -30,15 +15,20 @@ namespace white_rice_booking.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        private FilterFlightsService _filterflightsService;
+        public List<Flights> availableFlights;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(ILogger<IndexModel> logger, FilterFlightsService filterflightsService)
         {
             _logger = logger;
+            _filterflightsService = filterflightsService;
         }
 
-        public void OnGet()
+        [BindProperty(SupportsGet = true)]
+        public IActionResult OnGet()
         {
-
+            availableFlights = _filterflightsService.FilterFlights();
+            return RedirectToPage("./Index");
         }
     }
 }
