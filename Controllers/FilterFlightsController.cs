@@ -68,8 +68,9 @@ namespace white_rice_booking
             Date Last Updated: 4-18-2020
             Last Updated Programmer Name: William Yung
             Description: This function checks if the user wants a round trip or one way flight and 
-            takes in the departure & arrival airports, date leaving and if round trip date returning. 
-            It then calls all the functions needed to filter for a list of viable flights
+                         takes in the departure & arrival airports, date leaving and if round trip 
+                         date returning. It then calls all the functions needed to filter for a list 
+                         of viable flights
         */
         [HttpGet]
         [Route("filter/{trip_type}/{depart_loc}/{arrival_loc}/{outgoing_date}/{incoming_date}")]
@@ -112,7 +113,7 @@ namespace white_rice_booking
             Date Last Updated: 4-18-2020
             Last Updated Programmer Name: William Yung
             Description: This function opens the database looks for the airport that the user wants 
-            to leave from and gets the airport id from it.
+                         to leave from and gets the airport id from it.
         */
         [HttpGet]
         public void FilterDepartAirport(string depart_loc)
@@ -145,7 +146,7 @@ namespace white_rice_booking
             Date Last Updated: 4-18-2020
             Last Updated Programmer Name: William Yung
             Description: This function opens the database looks for the airport that the user wants 
-            to arrive at and gets the airport id from it.
+                         to arrive at and gets the airport id from it.
         */
         [HttpGet]
         public void FilterArrivalAirport(string arrival_loc)
@@ -178,7 +179,8 @@ namespace white_rice_booking
             Date Last Updated: 4-13-2020
             Last Updated Programmer Name: William Yung
             Description: This function opens the database looks for the flight route from the departure 
-            airport to the arrival airport by using the ids obtained from the previous 2 functions
+                         airport to the arrival airport by using the ids obtained from the previous 
+                         2 functions
         */
         [HttpGet]
         public int FilterRoute(int depart_ID, int arrival_ID)
@@ -206,7 +208,8 @@ namespace white_rice_booking
             Date Last Updated: 4-13-2020
             Last Updated Programmer Name: William Yung
             Description: This function uses the route id obtained from previous functions and the date 
-            that the user wants to depart and provides a list of flights that are available that day
+                         that the user wants to depart and provides a list of flights that are 
+                         available that day
         */
         public List<Flights> FilterDate(int route_id, string date){
             // Sets up the reader to read from the csv file
