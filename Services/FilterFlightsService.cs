@@ -2,7 +2,7 @@
     Name: Filter Flights Service
     Date Last Updated: 4-20-2020
     Programmer Names: Corey Stock, William Yung
-    Description: This class is the controller that will control how the website will filter the 
+    Description: This class is will control how the website will filter the 
                  different flights for the user to view and choose from
     Important Methods/Structures/Etc: 
             Functions - FilterFlights, FilterDepartAirport, FilterArrivalAirport, FilterRoute, FilterDate
@@ -98,9 +98,8 @@ namespace white_rice_booking.Services
                 incomingList = FilterDate(incomingRouteID, incoming_date);
                 return (outgoingList.Concat(incomingList).ToList());
             }
-            
+    
             return (outgoingList);
-
         }
 
         /*
@@ -241,5 +240,4 @@ namespace white_rice_booking.Services
             get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "flights.csv"); }
         }
     }
-    
 }
