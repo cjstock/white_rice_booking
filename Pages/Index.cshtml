@@ -11,6 +11,12 @@
 </div>
 *@
 
+
+<!-- Allows reference to static JavaScript file -->
+<script src="~/wwwroot/js/site.js"></script>
+
+
+
 <div class="text-center">
     <form action="/action_page.php" method="post">
         <!-- Dropdown menu for Trip Type (Round Trip or One-way) -->
@@ -112,3 +118,10 @@
         <input type="submit" value="Submit">
     </form>
 </div>
+
+
+
+@foreach (var product in Model.Products)
+{
+    <h2>@product.Title</h2>
+}

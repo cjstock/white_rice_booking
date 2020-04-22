@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+using white_rice_booking.Services;
+
 namespace white_rice_booking
 {
     public class Startup
@@ -28,6 +30,9 @@ namespace white_rice_booking
         {
             services.AddControllers();
             services.AddRazorPages();
+            
+// (FROM dotNET ASP.NET Core TUTORIAL)            
+            services.AddTransient<JsonFileProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +45,7 @@ namespace white_rice_booking
 
             app.UseStaticFiles(); // Allows HTML, CSS, images, and JavaScript files in wwwroot 
                                   // to be used
+
             app.UseRouting();
 
             app.UseAuthorization();
