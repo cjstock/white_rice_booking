@@ -127,6 +127,10 @@ namespace white_rice_booking.Controllers
         }
 
         //TODO: billing information, user information, seat counter on flights
+        public ActionResult<Reservation> BillingInfo()
+        {
+            return null;
+        }
 
         /*
             Name: Get Reservations
@@ -152,6 +156,4 @@ namespace white_rice_booking.Controllers
             return @JsonConvert.SerializeObject(_reservations);
         }
     }
-
-
 }
