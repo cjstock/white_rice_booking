@@ -1,4 +1,4 @@
-OpenFlights ID,Airport Name,City,IATA,Timezone,Tz database time zone
+OpenFlights_ID,Airport_Name,City_Name,IATA,Timezone,Timezone_Name
 3469,San Francisco International Airport,San Francisco,SFO,-8,America/Los_Angeles
 3484,Los Angeles International Airport,Los Angeles,LAX,-8,America/Los_Angeles
 3577,Seattle Tacoma International Airport,Seattle,SEA,-8,America/Los_Angeles
