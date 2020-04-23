@@ -35,7 +35,7 @@
                 <option value="SFO">San Francisco International Airport</option>
                 <option value="LAX">Los Angeles International Airport</option>
 
-                <option value="DEA">Seattle Tacoma International Airport</option>
+                <option value="SEA">Seattle Tacoma International Airport</option>
                 <option value="DFW">Dallas Fort Worth International Airport</option>
 
                 <option value="ATL">Hartsfield Jackson Atlanta International Airport</option>
@@ -61,7 +61,7 @@
                 <option value="SFO">San Francisco International Airport</option>
                 <option value="LAX">Los Angeles International Airport</option>
 
-                <option value="DEA">Seattle Tacoma International Airport</option>
+                <option value="SEA">Seattle Tacoma International Airport</option>
                 <option value="DFW">Dallas Fort Worth International Airport</option>
 
                 <option value="ATL">Hartsfield Jackson Atlanta International Airport</option>
@@ -77,39 +77,6 @@
     <!-- DELETE <br><br> LATER (IF TIME PERMITS) -->
             <br><br>
         </div>
-
-
-        <!-- Input box for Depart Date -->
-        @*<div class="item">
-            <label for="depart_date">Depart Date:</label>
-
-    <!-- DELETE <br> LATER (IF TIME PERMITS) -->
-            <br>
-            <input id="depart_date" type="date" name="depart_date" />
-            <i class="fas fa-calendar-alt"></i>
-    <!-- DELETE <br><br> LATER (IF TIME PERMITS) -->
-            <br><br>
-        </div>*@
-
-
-        <!-- Input box for Return Date -->
-        @*<div class="item">
-            <label for="return_date">Return Date:</label>
-
-    <!-- DELETE <br> LATER (IF TIME PERMITS) -->
-            <br>
-            <input id="return_date" type="date" name="return_date" />
-            <i class="fas fa-calendar-alt"></i>
-        </div>*@
-
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.depart_date, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(model => model.depart_date, new { @type="date", @class = "form-control datepicker",  
-                                                                 @Value = Model.depart_date.ToString("yyyy-MM-dd") } )
-                    @Html.ValidationMessageFor(model => model.depart_date, "", new { @class = "text-danger" })
-                </div>
-        </div>*@
 
         <div class="item">
             <label for="depart_date">Depart Date<span>*</span></label>
@@ -129,13 +96,45 @@
 </div>
 
 <div>
-    @foreach (var flight in @Model.availableFlights){
-        <h5>
-            @flight.Flight_ID
-            @flight.Seats
-            @flight.Date
-            @flight.Time
-        </h5>
+    <h2>Available Outgoing Flights</h2>
+    <table style="width:100%">
+        <tr>
+            <th>Flight ID</th>
+            <th>Date</th> 
+            <th>Time</th>
+            <th>Seats</th> 
+            <th>Price</th>
+        </tr>
+        @foreach (var flight in @Model.availableOutgoingFlights){
+        <tr>
+            <td>@flight.Flight_ID</td>
+            <td>@flight.Date</td>
+            <td>@flight.Time</td>
+            <td>@flight.Seats</td>
+            <td>@flight.Price</td>
+            <td><input type="submit" value="Select"></td>
+        </tr>
     }
-</div>
+    </table>
 
+    <h2>Available Inbound Flights</h2>
+    <table style="width:100%">
+        <tr>
+            <th>Flight ID</th>
+            <th>Date</th> 
+            <th>Time</th>
+            <th>Seats</th> 
+            <th>Price</th>
+        </tr>
+        @foreach (var flight in @Model.availableIncomingFlights){
+        <tr>
+            <td>@flight.Flight_ID</td>
+            <td>@flight.Date</td>
+            <td>@flight.Time</td>
+            <td>@flight.Seats</td>
+            <td>@flight.Price</td>
+            <td><input type="submit" value="Select"></td>
+        </tr>
+    }
+    </table>
+</div>

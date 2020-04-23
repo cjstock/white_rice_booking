@@ -1,10 +1,10 @@
 /*
     Name: Index
-    Date Last Updated: 4-20-2020
+    Date Last Updated: 4-23-2020
     Programmer Names: Justin Tran, Corey Stock, William Yung
     Description: This class is the will connect the front end of the Filter Flights Service backend
                  code with the front end Index page
-    Important Methods/Structures/Etc: N/A
+    Important Methods/Structures/Etc: OnGet
     Major Decisions: N/A
 */
 
@@ -25,13 +25,15 @@ namespace white_rice_booking.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private FilterFlightsService _filterflightsService;
-        public List<Flights> availableFlights;
+        public List<Flights> availableOutgoingFlights;
+        public List<Flights> availableIncomingFlights;
 
         public IndexModel(ILogger<IndexModel> logger, FilterFlightsService filterflightsService)
         {
             _logger = logger;
             _filterflightsService = filterflightsService;
-            availableFlights = new List<Flights>();
+            availableOutgoingFlights = new List<Flights>();
+            availableIncomingFlights = new List<Flights>();
         }
 
         [BindProperty(SupportsGet = true)]
@@ -51,23 +53,16 @@ namespace white_rice_booking.Pages
 
         public void OnGet()
         {
-            /*Console.WriteLine(DepartAirport);
-            Console.WriteLine(ArrivalAirport);
-            Console.WriteLine(TripType);
-            Console.WriteLine(depart_date);
-            Console.WriteLine(return_date);*/
-
+            _filterflightsService.ClearVariables();
             // This will call the back end function that obtains a list of flights to display to the user
-            availableFlights = _filterflightsService.FilterFlights(TripType, DepartAirport, 
-                                                                    ArrivalAirport, depart_date, return_date);
+            availableOutgoingFlights = _filterflightsService.FilterFlights(trip_type: TripType,
+                                                                   depart_loc: DepartAirport,
+                                                                   arrival_loc: ArrivalAirport,
+                                                                   outgoing_date: depart_date);
             
-            foreach (var record in availableFlights){
-                Console.WriteLine(record.Flight_ID);
-                Console.WriteLine(record.Date);
-                Console.WriteLine(record.Time);
-            }
-            //Console.WriteLine("Hello World");
-            //Console.WriteLine();
+            // Calls back end function to get list of incoming flights if the user chooses a round trip
+            if(TripType == "T")
+                availableIncomingFlights = _filterflightsService.FilterIncomingFlights(incoming_date: return_date);
         }
     }
 }
