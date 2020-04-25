@@ -9,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-
 using white_rice_booking.Services;
 
 namespace white_rice_booking
@@ -30,9 +29,8 @@ namespace white_rice_booking
         {
             services.AddControllers();
             services.AddRazorPages();
-            
-// (FROM dotNET ASP.NET Core TUTORIAL)            
-            services.AddTransient<JsonFileProductService>();
+            services.AddTransient<AccountService>();
+            services.AddTransient<FilterFlightsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,17 +1,18 @@
 /*
-    Name: Filter Flights Controller
-    Date Last Updated: 4-18-2020
+    Name: Filter Flights Service
+    Date Last Updated: 4-23-2020
     Programmer Names: Corey Stock, William Yung
-    Description: This class is the controller that will control how the website will filter the 
-                 different flights for the user to view and choose from
+    Description: This class shall control how the website will filter the different flights for the 
+                 user to view and choose from
     Important Methods/Structures/Etc: 
-            Functions - FilterFlights, FilterDepartAirport, FilterArrivalAirport, FilterRoute, FilterDate
+            Functions - FilterOutgoingFlights, FilterIncomingFlights, FilterDepartAirport, 
+                        FilterArrivalAirport, FilterRoute, FilterDate
     Major Decisions: 
-            - Used built in search function to look for data in the database because it keeps 
-            the code cleaner and easier to use
-            - Used csv files for database because we are only looking at the information
-            within the database and are not updating them so there is no need for a dedicated
-            database that would be more complicated 
+            - Used built in search function to look for data in the database because it keeps the 
+            code cleaner and easier to use
+            - Used csv files for database because we are only looking at the information within the 
+            database and are not updating them so there is no need for a dedicated database that 
+            would be more complicated 
 */
 
 using System;
@@ -21,64 +22,57 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using CsvHelper;
-using System.IO;
 using System.Globalization;
+using System.IO;
+using System.Text.Json;
+using System.Web;
+using System.Net;
+using CsvHelper;
+using System.Net.Http;
+using white_rice_booking.Models;
+using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 
-namespace white_rice_booking
+namespace white_rice_booking.Services
 {
-    [ApiController]
-    [Route("[controller]")]
-
-    public class FilterFlightsController : ControllerBase
+    public class FilterFlightsService
     {
-        private readonly ILogger<FilterFlightsController> _logger;
-
         public Boolean twoway = false;
-        // public string State { get; set; }
 
         // Departing flight variables
-        public int outgoingDepartAirportCode { get; set; }
-        public int outgoingArrivalAirportCode { get; set; }
-        public string outgoingDepartAirportName { get; set; }
-        public string outgoingArrivalAirportName { get; set; }
-        public int outgoingRouteID { get; set; }
-
-        // public DateTime outgoingDepart { get; set; }
-        // public DateTime outgoingArrival { get; set; }
+        public int outgoingDepartAirportCode { get; private set; }
+        public int outgoingArrivalAirportCode { get; private set; }
+        public string outgoingDepartAirportName { get; private set; }
+        public string outgoingArrivalAirportName { get; private set; }
+        public int outgoingRouteID { get; private set; }
 
         // Returning flight variables
-        public int incomingDepartAirportCode { get; set; }
-        public int incomingArrivalAirportCode { get; set; }
-        public string incomingDepartAirportName { get; set; }
-        public string incomingArrivalAirportName { get; set; }
-        public int incomingRouteID { get; set; }
+        public int incomingDepartAirportCode { get; private set; }
+        public int incomingArrivalAirportCode { get; private set; }
+        public string incomingDepartAirportName { get; private set; }
+        public string incomingArrivalAirportName { get; private set; }
+        public int incomingRouteID { get; private set; }
 
-        // public DateTime incomingDepart { get; set; }
-        // public DateTime incomingArrival { get; set; }
-
-        public FilterFlightsController(ILogger<FilterFlightsController> logger)
-        {
-            _logger = logger;
-        }
+        public IWebHostEnvironment WebHostEnvironment { get; }
         
+        public FilterFlightsService(IWebHostEnvironment webHostEnvironment)
+        {
+            WebHostEnvironment = webHostEnvironment;
+        }
+
         /*
-            Name: Filter Flights
-            Date Last Updated: 4-18-2020
+            Name: Filter Outgoing Flights
+            Date Last Updated: 4-23-2020
             Last Updated Programmer Name: William Yung
             Description: This function checks if the user wants a round trip or one way flight and 
                          takes in the departure & arrival airports, date leaving and if round trip 
                          date returning. It then calls all the functions needed to filter for a list 
                          of viable flights
         */
-        [HttpGet]
-        [Route("filter/{trip_type}/{depart_loc}/{arrival_loc}/{outgoing_date}/{incoming_date}")]
-        public List<Flights> FilterFlights(string trip_type, string depart_loc, string arrival_loc, 
-                                    string outgoing_date, string incoming_date)
+        public List<Flights> FilterOutgoingFlights(string trip_type, string depart_loc, string arrival_loc, 
+                                    string outgoing_date)
         {   
             List<Flights> outgoingList;
-            List<Flights> incomingList;
 
             // Compares input to set type of trip as round trip or one way
             if (trip_type == "O") { 
@@ -98,14 +92,19 @@ namespace white_rice_booking
 
             // Gets the list of available flights based on inputs
             outgoingList = FilterDate(outgoingRouteID,outgoing_date);
-            
-            if(twoway){ 
-                incomingList = FilterDate(incomingRouteID, incoming_date);
-                return (outgoingList.Concat(incomingList).ToList());
-            }
-            
-            return (outgoingList);
 
+            return (outgoingList);
+        }
+
+        /*
+            Name: Filter Incoming Flights
+            Date Last Updated: 4-23-2020
+            Last Updated Programmer Name: William Yung
+            Description: This function returns a list of flights if the user chooses a round trip
+        */
+        public List<Flights> FilterIncomingFlights(string incoming_date){
+            List<Flights> incomingList = FilterDate(incomingRouteID, incoming_date);
+            return incomingList;
         }
 
         /*
@@ -115,11 +114,10 @@ namespace white_rice_booking
             Description: This function opens the database looks for the airport that the user wants 
                          to leave from and gets the airport id from it.
         */
-        [HttpGet]
         public void FilterDepartAirport(string depart_loc)
         {
             // Sets up the reader to read from the csv file
-            using (var airport_reader = new StreamReader("database\\top_10_airports.csv"))
+            using (var airport_reader = new StreamReader(AirportFileName))
             using (var csv = new CsvReader(airport_reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<Airport>();
@@ -148,11 +146,10 @@ namespace white_rice_booking
             Description: This function opens the database looks for the airport that the user wants 
                          to arrive at and gets the airport id from it.
         */
-        [HttpGet]
         public void FilterArrivalAirport(string arrival_loc)
         {
             // Sets up the reader to read from the csv file
-            using (var airport_reader = new StreamReader("database\\top_10_airports.csv"))
+            using (var airport_reader = new StreamReader(AirportFileName))
             using (var csv = new CsvReader(airport_reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<Airport>();
@@ -182,11 +179,10 @@ namespace white_rice_booking
                          airport to the arrival airport by using the ids obtained from the previous 
                          2 functions
         */
-        [HttpGet]
         public int FilterRoute(int depart_ID, int arrival_ID)
         {
             // Sets up the reader to read from the csv file
-            using (var route_reader = new StreamReader("database\\top_10_routes.csv"))
+            using (var route_reader = new StreamReader(RouteFileName))
             using (var csv = new CsvReader(route_reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<Routes>();
@@ -213,22 +209,64 @@ namespace white_rice_booking
         */
         public List<Flights> FilterDate(int route_id, string date){
             // Sets up the reader to read from the csv file
-            using (var flight_reader = new StreamReader("database\\flights.csv"))
+            using (var flight_reader = new StreamReader(FlightsFileName))
             using (var csv = new CsvReader(flight_reader, CultureInfo.InvariantCulture))
             {
                 List<Flights> flights_list = new List<Flights>();
                 var records = csv.GetRecords<Flights>();
+
                 // Loops through the file to look for the departure airport based on user input
                 foreach (var record in records)
                 {
                     // Checks if the departure airport ID and arrival airport ID match in the 
                     // database then returns the id of the route
-                    if(route_id == record.Route_ID && date == record.Date)
+                    if(route_id == record.Route_ID && date == record.Date){
                         // Stores all data that matches in a list
                         flights_list.Add(record);
+                    }
                 }
                 return flights_list;
             }
+        }
+
+        /*
+            Name: Clear Variables
+            Date Last Updated: 4-23-2020
+            Last Updated Programmer Name: William Yung
+            Description: This function clears all variables of previous inputs to prevent errors
+        */
+        public void ClearVariables(){
+            // Departing flight variables
+            outgoingDepartAirportCode = 0;
+            outgoingArrivalAirportCode = 0;
+            outgoingDepartAirportName = "";
+            outgoingArrivalAirportName = "";
+            outgoingRouteID = 0;
+
+            // Returning flight variables
+            incomingDepartAirportCode = 0;
+            incomingArrivalAirportCode = 0;
+            incomingDepartAirportName = "";
+            incomingArrivalAirportName = "";
+            incomingRouteID = 0;
+        }
+
+        // This property uses a path to get the airports database csv file to be used by a function
+        private string AirportFileName
+        {
+            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "top_10_airports.csv"); }
+        }
+
+        // This property uses a path to get the routes database csv file to be used by a function
+        private string RouteFileName
+        {
+            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "top_10_routes.csv"); }
+        }
+        
+        // This property uses a path to get the flights database csv file to be used by a function
+        private string FlightsFileName
+        {
+            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "flights.csv"); }
         }
     }
 }
