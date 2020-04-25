@@ -24,12 +24,6 @@ a {
   border-color: #1861ac;
 }
 
-/*
-.navbar-brand:after {
-  clear:both;
-}
-*/
-
 /* Position contents on left side of navigation bar */
 .nav-left {
   float: left;
@@ -38,6 +32,25 @@ a {
 /* Position contents on right side of navigation bar */
 .nav-right {
   float: right;
+}
+
+
+/* Button formatting */
+.button {
+  background-color: rgb(184, 0, 0); /* Red */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button-blue {
+  background-color: #008CBA; /* Blue */
 }
 
 /* Sticky footer styles
@@ -86,5 +99,55 @@ body {
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+
+/* Formatting for important text */
+strong {
+  font-weight: bold; 
+}
+
+
+/* Input boxes on the same row */
+.row {
+  display: table;
+  width: 100%; 
+  table-layout: fixed;
+  border-spacing: 10px;
+}
+
+.column-start-box1 {
+  display: table-cell;
+  /* margin-right: 30px; */
+  padding-right: 60px;
+}
+
+.column-pad-box2 {
+  display: table-cell;
+  padding-right: 20px;
+}
+
+.column-zero-pad {
+  display: table-cell;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.column-pad-box3 {
+  display: table-cell;
+  padding-left: 20px;
+  padding-right: 0px;
+}
+
+.column-pad-box4 {
+  display: table-cell;
+  padding-left: 0px;
+  padding-right: 40px;
+}
+
+
+/* Form box formats */
+input.input-small-box {
+  width: 100px;
 }
 

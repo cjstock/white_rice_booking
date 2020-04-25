@@ -10,25 +10,6 @@ using white_rice_booking.Models;
 using white_rice_booking.Services;
 
 
-
-/*
-namespace white_rice_booking.Pages
-{
-    public class IndexModel : PageModel
-    {
-        public string Message { get; private set; } = "PageModel in C#";
-
-        public void OnGet()
-        {
-            //Message += $"Hello world!";
-            Message += $" Server time is { DateTime.Now }";
-        }
-    }
-}
-*/
-
-
-
 namespace white_rice_booking.Pages
 {
     public class IndexModel : PageModel
@@ -46,5 +27,8 @@ namespace white_rice_booking.Pages
         {
             Products = ProductService.GetProducts();
         }
+
+// NOTE TO SELF: (DELETE LATER)
+        /* AFTER filtration of flights (on home page) has been made, REDIRECT user to FILTER_FLIGHTS PAGE */
     }
 }

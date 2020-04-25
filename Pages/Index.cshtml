@@ -1,7 +1,7 @@
 @page
 @model IndexModel
 @{
-    ViewData["Title"] = "Book Flights page";
+    ViewData["Title"] = "Home page";
 }
 
 @*
@@ -10,15 +10,10 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 *@
-
-
-<!-- Allows reference to static JavaScript file -->
-<script src="~/wwwroot/js/site.js"></script>
-
-
-
+<h1>Book Flight</h1>
+ 
 <div class="text-center">
-    <form action="/action_page.php" method="post">
+    <form method="post">
         <!-- Dropdown menu for Trip Type (Round Trip or One-way) -->
         <div class="item">
             <!-- <label for="">Choose a car:</label> -->
@@ -120,8 +115,9 @@
 </div>
 
 
-
+@*
 @foreach (var product in Model.Products)
 {
     <h2>@product.Title</h2>
 }
+*@

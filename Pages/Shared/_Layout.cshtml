@@ -6,12 +6,13 @@
     <title>@ViewData["Title"] - Flights "R" Us</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/claudia_send_button.css" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-blue border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Flights "R" Us</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index"><strong>Flights "R" Us</strong></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -42,21 +43,20 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/My_Trips">My Trips</a>
                         </li>
                         <li class="nav-left">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Flight_Status">Flight Status</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/FlightStatus">Flight Status</a>
                         </li>
 
                     </ul>
                 </div>
                 
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        
+                    <ul class="navbar-nav flex-grow-2">
                         <!-- List of items on left side of navigation bar -->
                         <li class="nav-right">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/SignUp">Sign Up</a>
+                            <a class="nav-link text-dark" href="">Sign Up</a>
                         </li>
                         <li class="nav-right">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/LogIn">Log In</a>
+                            <button class="nav-link text-dark button-blue" href="">Log In</a>
                         </li>
                         
                     </ul>
@@ -67,7 +67,6 @@
             </div>
         </nav>
     </header>
-
 
 
 
