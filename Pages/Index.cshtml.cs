@@ -51,11 +51,18 @@ namespace white_rice_booking.Pages
         [BindProperty(SupportsGet = true)]
         public string TripType{get;set;}
 
+        [BindProperty(SupportsGet = true)]
+        public int OutboundFlightID{get;set;}
+
+        [BindProperty(SupportsGet = true)]
+        public int InboundFlightID{get;set;}
+
+
         public void OnGet()
         {
             _filterflightsService.ClearVariables();
             // This will call the back end function that obtains a list of flights to display to the user
-            availableOutgoingFlights = _filterflightsService.FilterFlights(trip_type: TripType,
+            availableOutgoingFlights = _filterflightsService.FilterOutgoingFlights(trip_type: TripType,
                                                                    depart_loc: DepartAirport,
                                                                    arrival_loc: ArrivalAirport,
                                                                    outgoing_date: depart_date);

@@ -90,51 +90,53 @@
         
     <!-- DELETE <br><br> LATER (IF TIME PERMITS) -->
         <br><br>              
-
+        <!--<button asp-page-handler="Submit">Submit</button>-->
         <input type="submit" value="Submit">
     </form>
 </div>
 
-<div>
-    <h2>Available Outgoing Flights</h2>
-    <table style="width:100%">
-        <tr>
-            <th>Flight ID</th>
-            <th>Date</th> 
-            <th>Time</th>
-            <th>Seats</th> 
-            <th>Price</th>
-        </tr>
-        @foreach (var flight in @Model.availableOutgoingFlights){
-        <tr>
-            <td>@flight.Flight_ID</td>
-            <td>@flight.Date</td>
-            <td>@flight.Time</td>
-            <td>@flight.Seats</td>
-            <td>@flight.Price</td>
-            <td><input type="submit" value="Select"></td>
-        </tr>
-    }
-    </table>
+<div class="text-center">
+    <form method="post">
+        <h2>Available Outgoing Flights</h2>
+        <table style="width:100%">
+            <tr>
+                <th>Flight ID</th>
+                <th>Date</th> 
+                <th>Time</th>
+                <th>Seats</th> 
+                <th>Price</th>
+            </tr>
+            @foreach (var flight in @Model.availableOutgoingFlights){
+            <tr>
+                <td>@flight.Flight_ID</td>
+                <td>@flight.Date</td>
+                <td>@flight.Time</td>
+                <td>@flight.Seats</td>
+                <td>@flight.Price</td>
+                <td><input type="submit" value="Submit" onclick="@Model.OutboundFlightID = @flight.Flight_ID"></td>
+            </tr>
+        }
+        </table>
 
-    <h2>Available Inbound Flights</h2>
-    <table style="width:100%">
-        <tr>
-            <th>Flight ID</th>
-            <th>Date</th> 
-            <th>Time</th>
-            <th>Seats</th> 
-            <th>Price</th>
-        </tr>
-        @foreach (var flight in @Model.availableIncomingFlights){
-        <tr>
-            <td>@flight.Flight_ID</td>
-            <td>@flight.Date</td>
-            <td>@flight.Time</td>
-            <td>@flight.Seats</td>
-            <td>@flight.Price</td>
-            <td><input type="submit" value="Select"></td>
-        </tr>
-    }
-    </table>
+        <h2>Available Inbound Flights</h2>
+        <table style="width:100%">
+            <tr>
+                <th>Flight ID</th>
+                <th>Date</th> 
+                <th>Time</th>
+                <th>Seats</th> 
+                <th>Price</th>
+            </tr>
+            @foreach (var flight in @Model.availableIncomingFlights){
+            <tr>
+                <td>@flight.Flight_ID</td>
+                <td>@flight.Date</td>
+                <td>@flight.Time</td>
+                <td>@flight.Seats</td>
+                <td>@flight.Price</td>
+                <td><input type="submit" value="Submit" onclick="@Model.InboundFlightID = @flight.Flight_ID"></td>
+            </tr>
+        }
+        </table>
+    </form>
 </div>
