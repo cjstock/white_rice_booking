@@ -210,10 +210,10 @@ namespace white_rice_booking.Services
         public List<Flights> FilterDate(int route_id, string date){
             // Sets up the reader to read from the csv file
             using (var flight_reader = new StreamReader(FlightsFileName))
-            using (var csv = new CsvReader(flight_reader, CultureInfo.InvariantCulture))
+            //using (var csv = new CsvReader(flight_reader, CultureInfo.InvariantCulture))
             {
                 List<Flights> flights_list = new List<Flights>();
-                var records = csv.GetRecords<Flights>();
+                var records = System.Text.Json.JsonSerializer.Deserialize<Flights[]>(flight_reader.ReadToEnd());
 
                 // Loops through the file to look for the departure airport based on user input
                 foreach (var record in records)
@@ -266,7 +266,7 @@ namespace white_rice_booking.Services
         // This property uses a path to get the flights database csv file to be used by a function
         private string FlightsFileName
         {
-            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "flights.csv"); }
+            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "flights.json"); }
         }
     }
 }

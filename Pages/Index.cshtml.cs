@@ -57,7 +57,6 @@ namespace white_rice_booking.Pages
         [BindProperty(SupportsGet = true)]
         public int InboundFlightID{get;set;}
 
-
         public void OnGet()
         {
             _filterflightsService.ClearVariables();

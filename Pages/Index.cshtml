@@ -1,15 +1,18 @@
 @page
+<!--
+    Name: Index
+    Date Last Updated: 4-27-2020
+    Programmer Names: Justin Tran, William Yung
+    Description: This file shall display the front end UI of the Filter Flights Service class and 
+                 allow users to access the flight filter function
+    Important Methods/Structures/Etc: 
+            Model - Index.cshtml.cs
+    Major Decisions: N/A
+-->
 @model IndexModel
 @{
     ViewData["Title"] = "Book Flights page";
 }
-
-@*
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-*@
 
 <div class="text-center">
     <form method="get">
@@ -21,15 +24,10 @@
                 <option value="T">Round Trip</option>
                 <option value="O">One Way</option>
             </select>
-
-    <!-- DELETE <br><br> LATER (IF TIME PERMITS) -->
-            <br><br>
         </div>
 
         <!-- Dropdown menu for Departing Location (Airport Name) -->
         <div class="item">
-            <!-- <label for="">Choose a car:</label> -->
-            
             <select id="dep_loc_airport" name="DepartAirport">
                 <option selected value="" disabled>Departing Location</option>
                 <option value="SFO">San Francisco International Airport</option>
@@ -47,15 +45,11 @@
                 <option value="LAS">McCarran International Airport</option>
                 <option value="MCO">Orlando International Airport</option>
             </select>
-
-    <!-- DELETE <br><br> LATER (IF TIME PERMITS) -->
-            <br><br>
         </div>
 
 
         <!-- Dropdown menu for Arrival Location (Airport Name) -->
         <div class="item">
-            <!-- <label for="">Choose a car:</label> -->
             <select id="arr_loc_airport" name="ArrivalAirport">
                 <option selected value="" disabled>Arrival Location</option>
                 <option value="SFO">San Francisco International Airport</option>
@@ -74,29 +68,29 @@
                 <option value="MCO">Orlando International Airport</option>
             </select>
 
-    <!-- DELETE <br><br> LATER (IF TIME PERMITS) -->
-            <br><br>
         </div>
 
+        <!-- Text box for inputting departure date -->
         <div class="item">
             <label for="depart_date">Depart Date<span>*</span></label>
             <input type="text" name="depart_date" placeholder="YYYY-MM-DD"/>
         </div>
 
+        <!-- Text box for inputting return date -->
         <div class="item">
             <label for="return_date">Return Date<span>*</span></label>
             <input type="text" name="return_date" placeholder="YYYY-MM-DD"/>
         </div>
-        
-    <!-- DELETE <br><br> LATER (IF TIME PERMITS) -->
-        <br><br>              
-        <!--<button asp-page-handler="Submit">Submit</button>-->
-        <input type="submit" value="Submit">
+
+        <!-- Button for confirming all inputs to get list of available flights -->
+        <input type="sumbit" value="Sumbit"/>
     </form>
 </div>
 
+
 <div class="text-center">
     <form method="post">
+        <!-- Table to display available outgoing flights and select the flight desired -->
         <h2>Available Outgoing Flights</h2>
         <table style="width:100%">
             <tr>
@@ -118,6 +112,7 @@
         }
         </table>
 
+        <!-- Table to display available incoming flights and select the flight desired -->
         <h2>Available Inbound Flights</h2>
         <table style="width:100%">
             <tr>
