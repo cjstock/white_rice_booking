@@ -23,6 +23,7 @@ using System.Net;
 using System.Net.Http;
 using white_rice_booking.Models;
 using Microsoft.AspNetCore.Hosting;
+using CsvHelper;
 
 namespace white_rice_booking.Services
 {
@@ -67,6 +68,7 @@ namespace white_rice_booking.Services
             _reservations = reservationList.AsEnumerable();
             
             //Write to data
+            decrementSeat(departID);
             WriteToFile(JsonFileName, _reservations);
             return _reservations;
         }
@@ -132,6 +134,45 @@ namespace white_rice_booking.Services
             return null;
         }
 
+        public void decrementSeat(int flightID)
+        {
+            using (var flight_reader = new StreamReader(FlightsFileName))
+            {
+                List<Flights> flights_list = new List<Flights>();
+                int counter = 0;
+                var records = System.Text.Json.JsonSerializer.Deserialize<Flights[]>(flight_reader.ReadToEnd());
+                foreach (var record in records)
+                {
+                    if(record.Flight_ID == flightID)
+                    {
+                        int temp = record.Seats;
+                        record.Seats = temp-1;
+                        string jsonName = File.ReadAllText("flights.json");
+                        dynamic jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonName);
+                        jsonObj["Seats"][counter] = temp-1;
+                        string output = Newtonsoft.Json.JsonConvert.SerializeObject(jsonObj, Newtonsoft.Json.Formatting.Indented);
+                        File.WriteAllText("flights.json", output);
+                    }
+                    counter++;
+                }
+            }
+            /*var jsonName = File.ReadAllText("flights.json");
+            foreach (var flight in jsonName)
+            {
+                if(flight.Flight_ID == flightID)
+                {
+                    dynamic jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonName);
+                    jsonObj["Seats"][0] = "299";
+                    string output = Newtonsoft.Json.JsonConvert.SerializeObject(jsonObj, Newtonsoft.Json.Formatting.Indented);
+                    File.WriteAllText("flights.json", output);
+                }
+            }*/
+            /*dynamic jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+            jsonObj["Seats"][0] = "299";
+            string output = Newtonsoft.Json.JsonConvert.SerializeObject(jsonObj, Newtonsoft.Json.Formatting.Indented);
+            File.WriteAllText("flights.json", output);*/
+        }
+
         public void WriteToFile(string fileName, IEnumerable<object> objects)
         {
             using(var outputStream = File.OpenWrite(fileName))
@@ -159,6 +200,11 @@ namespace white_rice_booking.Services
             {
                 return JsonSerializer.Deserialize<Reservation[]>(jsonFileReader.ReadToEnd());
             }
+        }
+
+        private string FlightsFileName
+        {
+            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "flights.json");}
         }
 
         //this property uses Path to access the database to be used by another function
