@@ -12,20 +12,58 @@
         <form method="post">
 
             <div class="form-group">
-                <label for="depart_date">Depart Date</label>
-                <input asp-for="@Model.depart_date" placeholder="YYYY-MM-DD"/>
+                <label for="depart_ID">Depart ID</label>
+                <input asp-for="@Model.depart_ID" placeholder=""/>
             </div>
 
             <div class="form-group">
-                <label for="return_date">Return Date</label>
-                <input asp-for="@Model.return_date" placeholder="YYYY-MM-DD"/>
+                <label for="return_ID">Return ID</label>
+                <input asp-for="@Model.return_ID" placeholder=""/>
             </div>       
-
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input asp-for="@Model.first_name" placeholder=""/>
+            </div> 
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input asp-for="@Model.last_name" placeholder=""/>
+            </div> 
+            <div class="form-group">
+                <label for="street_address">Street Address</label>
+                <input asp-for="@Model.street_address" placeholder=""/>
+            </div> 
+            <div class="form-group">
+                <label for="apt_num">Apt #</label>
+                <input asp-for="@Model.apt_num" placeholder=""/>
+            </div> 
+            <div class="form-group">
+                <label for="city">City</label>
+                <input asp-for="@Model.city" placeholder=""/>
+            </div> 
+            <div class="form-group">
+                <label for="state">State</label>
+                <input asp-for="@Model.state" placeholder=""/>
+            </div> 
+            <div class="form-group">
+                <label for="zip_code">Zip Code</label>
+                <input asp-for="@Model.zip_code" placeholder=""/>
+            </div> 
             <div class="form-group">
                 <!--<input type="submit" value="Submit">-->
                 <input type="submit" value="Submit" class="btn btn-primary" />
             </div>
-            
+
         </form>
     </div>
+</div>
+<div>
+    <p>Depart ID: @Model.depart_ID</p>
+    <p>Return ID: @Model.return_ID</p>
+    <p>First Name: @Model.first_name</p>
+    <p>Last Name: @Model.last_name</p>
+    <p>Street Address: @Model.street_address</p>
+    <p>Apt#: @Model.apt_num</p>
+    <p>City: @Model.city</p>
+    <p>State: @Model.state</p>
+    <p>Zip Code: @Model.zip_code</p>
 </div>
