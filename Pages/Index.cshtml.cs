@@ -5,24 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-
-
-/*
-namespace white_rice_booking.Pages
-{
-    public class IndexModel : PageModel
-    {
-        public string Message { get; private set; } = "PageModel in C#";
-
-        public void OnGet()
-        {
-            //Message += $"Hello world!";
-            Message += $" Server time is { DateTime.Now }";
-        }
-    }
-}
-*/
-
+using Microsoft.AspNetCore.Http;
 
 
 namespace white_rice_booking.Pages
@@ -39,6 +22,12 @@ namespace white_rice_booking.Pages
         public void OnGet()
         {
 
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("loggedInUser");
+            return RedirectToPage("Index");
         }
     }
 }

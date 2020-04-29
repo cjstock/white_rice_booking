@@ -44,6 +44,8 @@ namespace white_rice_booking.Pages
             if (success)
             {
                 HttpContext.Session.SetString("loggedInUser", UserAccount.Email);
+                var returnString = HttpContext.Session.GetString("loggedInUser");
+                Console.WriteLine(returnString);
                 return RedirectToPage("./Index");
             }
             else { return Page(); }
