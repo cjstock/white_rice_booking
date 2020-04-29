@@ -2,9 +2,9 @@
     Name: Index
     Date Last Updated: 4-23-2020
     Programmer Names: Justin Tran, Corey Stock, William Yung
-    Description: This class is the will connect the front end of the Filter Flights Service backend
-                 code with the front end Index page
-    Important Methods/Structures/Etc: OnGet
+    Description: This class connects the home page front-end, namely Index.cshtml, with the 
+                 initial page loading and page navigation controls in the back-end
+    Important Methods/Structures/Etc: OnPost
     Major Decisions: N/A
 */
 
@@ -24,18 +24,21 @@ namespace white_rice_booking.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+/*        
         private FilterFlightsService _filterflightsService;
         public List<Flights> availableOutgoingFlights;
         public List<Flights> availableIncomingFlights;
-
-        public IndexModel(ILogger<IndexModel> logger, FilterFlightsService filterflightsService)
+*/        
+        public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
+/*            
             _filterflightsService = filterflightsService;
             availableOutgoingFlights = new List<Flights>();
             availableIncomingFlights = new List<Flights>();
+*/            
         }
-
+/*
         [BindProperty(SupportsGet = true)]
         public string DepartAirport{get; set;}
         
@@ -50,22 +53,31 @@ namespace white_rice_booking.Pages
         
         [BindProperty(SupportsGet = true)]
         public string TripType{get;set;}
-
-        public void OnGet()
+*/
+        public void OnGet() 
         {
+
+        }
+
+        
+        public IActionResult OnPost() 
+        {
+/*            
             _filterflightsService.ClearVariables();
-            // This will call the back end function that obtains a list of flights to display to the user
-            availableOutgoingFlights = _filterflightsService.FilterFlights(trip_type: TripType,
+            // This will call the back-end function that obtains a list of flights to display to the user
+            availableOutgoingFlights = _filterflightsService.FilterOutgoingFlights(trip_type: TripType,
                                                                    depart_loc: DepartAirport,
                                                                    arrival_loc: ArrivalAirport,
                                                                    outgoing_date: depart_date);
             
-            // Calls back end function to get list of incoming flights if the user chooses a round trip
+            // Calls back-end function to get list of incoming flights if the user chooses a round trip
             if(TripType == "T")
                 availableIncomingFlights = _filterflightsService.FilterIncomingFlights(incoming_date: return_date);
+            return Page();
+*/            
+            return RedirectToPage("/FilterFlights");
+            
         }
 
-// NOTE TO SELF: (DELETE LATER)
-        /* AFTER filtration of flights (on home page) has been made, REDIRECT user to FILTER_FLIGHTS PAGE */
     }
 }

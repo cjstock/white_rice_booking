@@ -41,9 +41,9 @@ namespace white_rice_booking
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles(); // Allows HTML, CSS, images, and JavaScript files in wwwroot 
                                   // to be used
-
             app.UseRouting();
 
             app.UseAuthorization();

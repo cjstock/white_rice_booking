@@ -1,5 +1,15 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+/*
+    Name: Index
+    Date Last Updated: 4-27-2020
+    Programmer Names: Justin Tran
+    Description: This file shall describe the presentation of the HTML content of the webpages, which
+                includes, but is not limited to, spacing between each item, background color, and fonts
+    Important Methods/Structures/Etc: 
+            Model - Index.cshtml.cs
+    Major Decisions: N/A
+*/
 
 a.navbar-brand {
   white-space: normal;
@@ -35,7 +45,7 @@ a {
 }
 
 
-/* Button formatting */
+/* Button formatting styles */
 .button {
   background-color: rgb(184, 0, 0); /* Red */
   border: none;
@@ -49,12 +59,12 @@ a {
   cursor: pointer;
 }
 
+/* Button with a blue background */
 .button-blue {
   background-color: #008CBA; /* Blue */
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+/* Text formatting for HTML content */
 html {
   font-size: 14px;
 }
@@ -80,13 +90,13 @@ button.accept-policy {
   line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+/* Sticky footer styles */
 html {
   position: relative;
   min-height: 100%;
 }
 
+/* Formatting for contents in body of web page */
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
@@ -116,29 +126,34 @@ strong {
   border-spacing: 10px;
 }
 
+/* Padding adjustment for first input box in table row */
 .column-start-box1 {
   display: table-cell;
   /* margin-right: 30px; */
   padding-right: 60px;
 }
 
+/* Padding adjustment for second input box in table row */
 .column-pad-box2 {
   display: table-cell;
   padding-right: 20px;
 }
 
+/* No padding on the left and right sides of input box */
 .column-zero-pad {
   display: table-cell;
   padding-left: 0px;
   padding-right: 0px;
 }
 
+/* Padding adjustment for third input box in table row */
 .column-pad-box3 {
   display: table-cell;
   padding-left: 20px;
   padding-right: 0px;
 }
 
+/* Padding adjustment for fourth input box in table row */
 .column-pad-box4 {
   display: table-cell;
   padding-left: 0px;
@@ -146,7 +161,7 @@ strong {
 }
 
 
-/* Form box formats */
+/* Form box with specified width format */
 input.input-small-box {
   width: 100px;
 }

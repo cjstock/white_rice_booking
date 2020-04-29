@@ -14,6 +14,7 @@
             database that would be more complicated 
 */
 
+/*
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,9 @@ using CsvHelper;
 using System.IO;
 using System.Globalization;
 using Newtonsoft.Json;
+*/
 
+/*
 namespace white_rice_booking
 {
     [ApiController]
@@ -62,7 +65,7 @@ namespace white_rice_booking
         {
             _logger = logger;
         }
-        
+*/       
         /*
             Name: Filter Flights
             Date Last Updated: 4-18-2020
@@ -72,6 +75,7 @@ namespace white_rice_booking
                          date returning. It then calls all the functions needed to filter for a list 
                          of viable flights
         */
+/*        
         [HttpGet]
         [Route("filter/{trip_type}/{depart_loc}/{arrival_loc}/{outgoing_date}/{incoming_date}")]
         public List<Flights> FilterFlights(string trip_type, string depart_loc, string arrival_loc, 
@@ -107,7 +111,7 @@ namespace white_rice_booking
             return (outgoingList);
 
         }
-
+*/
         /*
             Name: Filter Depart Airport
             Date Last Updated: 4-18-2020
@@ -115,6 +119,7 @@ namespace white_rice_booking
             Description: This function opens the database looks for the airport that the user wants 
                          to leave from and gets the airport id from it.
         */
+/*        
         [HttpGet]
         public void FilterDepartAirport(string depart_loc)
         {
@@ -140,7 +145,7 @@ namespace white_rice_booking
                 }
             }
         }
-
+*/
         /*
             Name: Filter Arrival Airport
             Date Last Updated: 4-18-2020
@@ -148,6 +153,7 @@ namespace white_rice_booking
             Description: This function opens the database looks for the airport that the user wants 
                          to arrive at and gets the airport id from it.
         */
+/*        
         [HttpGet]
         public void FilterArrivalAirport(string arrival_loc)
         {
@@ -173,7 +179,7 @@ namespace white_rice_booking
                 }
             }
         }
-
+*/
         /*
             Name: Filter Route
             Date Last Updated: 4-13-2020
@@ -182,6 +188,7 @@ namespace white_rice_booking
                          airport to the arrival airport by using the ids obtained from the previous 
                          2 functions
         */
+/*        
         [HttpGet]
         public int FilterRoute(int depart_ID, int arrival_ID)
         {
@@ -202,7 +209,7 @@ namespace white_rice_booking
                 return 0;
             }
         }
-
+*/
         /*
             Name: Filter Date
             Date Last Updated: 4-13-2020
@@ -211,6 +218,7 @@ namespace white_rice_booking
                          that the user wants to depart and provides a list of flights that are 
                          available that day
         */
+/*        
         public List<Flights> FilterDate(int route_id, string date){
             // Sets up the reader to read from the csv file
             using (var flight_reader = new StreamReader("database\\flights.csv"))
@@ -232,3 +240,4 @@ namespace white_rice_booking
         }
     }
 }
+*/

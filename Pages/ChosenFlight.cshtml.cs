@@ -27,7 +27,7 @@ namespace white_rice_booking.Pages
 
         public IActionResult OnPost() 
         {
-            return RedirectToPage("./Reservations");
+            return RedirectToPage("/Reservations");
         }
 // NOTE TO SELF: (DELETE LATER)
         /* AFTER user selects a flight (which is listed with a price in $), REDIRECT user to RESERVATIONS PAGE */

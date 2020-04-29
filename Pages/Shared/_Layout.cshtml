@@ -1,3 +1,14 @@
+<!--
+    Name: Index
+    Date Last Updated: 4-27-2020
+    Programmer Names: Justin Tran
+    Description: This file displays the front-end UI that all of the razor pages share, especially
+                 the top navigation bar and the footer bar
+    Important Methods/Structures/Etc: <nav .. >  .... </nav>,
+                                      RenderBody (in <main> ... </main>)
+    Major Decisions: N/A
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +17,6 @@
     <title>@ViewData["Title"] - Flights "R" Us</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/claudia_send_button.css" />
 </head>
 <body>
     <header>
@@ -68,21 +78,11 @@
         </nav>
     </header>
 
-
-
-    
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
-
         </main>
     </div>
-
-
-
-
-
-    
 
     <footer class="border-top footer text-muted">
         <div class="container">
