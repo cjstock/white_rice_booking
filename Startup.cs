@@ -31,6 +31,7 @@ namespace white_rice_booking
             services.AddRazorPages();
             services.AddTransient<AccountService>();
             services.AddTransient<FilterFlightsService>();
+            services.AddTransient<ReservationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
