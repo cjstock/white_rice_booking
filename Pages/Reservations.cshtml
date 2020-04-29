@@ -9,44 +9,40 @@
 <!-- Form for reserving a desired flight from a list of filtered flights information -->
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <form asp-page="/ReservationConfirm" method="post">
 
             <div class="form-group">
                 <label for="depart_ID">Depart ID</label>
-                <input asp-for="@Model.depart_ID" placeholder=""/>
+                <input type="text" name="depart_ID" placeholder=""/>
             </div>
 
             <div class="form-group">
                 <label for="return_ID">Return ID</label>
-                <input asp-for="@Model.return_ID" placeholder=""/>
+                <input type="text" name="return_ID" placeholder=""/>
             </div>       
             <div class="form-group">
-                <label for="first_name">First Name</label>
-                <input asp-for="@Model.first_name" placeholder=""/>
+                <label for="FirstName">First Name</label>
+                <input type="text" name="FirstName" placeholder=""/>
             </div> 
             <div class="form-group">
                 <label for="last_name">Last Name</label>
-                <input asp-for="@Model.last_name" placeholder=""/>
+                <input type="text" name="LastName" placeholder=""/>
             </div> 
             <div class="form-group">
                 <label for="street_address">Street Address</label>
-                <input asp-for="@Model.street_address" placeholder=""/>
-            </div> 
-            <div class="form-group">
-                <label for="apt_num">Apt #</label>
-                <input asp-for="@Model.apt_num" placeholder=""/>
+                <input type="text" name="StreetName" placeholder=""/>
             </div> 
             <div class="form-group">
                 <label for="city">City</label>
-                <input asp-for="@Model.city" placeholder=""/>
+                <input type="text" name="City" placeholder=""/>
             </div> 
             <div class="form-group">
                 <label for="state">State</label>
-                <input asp-for="@Model.state" placeholder=""/>
+                <input type="text" name="State" placeholder=""/>
             </div> 
             <div class="form-group">
-                <label for="zip_code">Zip Code</label>
-                <input asp-for="@Model.zip_code" placeholder=""/>
+                <label for="ZipCode">Zip Code</label>
+                <input type="text" name="ZipCode" placeholder=""/>
             </div> 
             <div class="form-group">
                 <!--<input type="submit" value="Submit">-->
@@ -55,15 +51,4 @@
 
         </form>
     </div>
-</div>
-<div>
-    <p>Depart ID: @Model.depart_ID</p>
-    <p>Return ID: @Model.return_ID</p>
-    <p>First Name: @Model.first_name</p>
-    <p>Last Name: @Model.last_name</p>
-    <p>Street Address: @Model.street_address</p>
-    <p>Apt#: @Model.apt_num</p>
-    <p>City: @Model.city</p>
-    <p>State: @Model.state</p>
-    <p>Zip Code: @Model.zip_code</p>
 </div>

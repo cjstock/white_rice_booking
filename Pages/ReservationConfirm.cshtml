@@ -1,0 +1,15 @@
+@page 
+@model ReservationConfirmModel
+@{
+    ViewData["Title"] = "Order Confirmation"; // Adds "My Trips" to ViewData dictionary
+}
+<div>
+    <p>Depart ID: @Model.depart_ID</p>
+    <p>Return ID: @Model.return_ID</p>
+    <p>First Name: @Model.FirstName</p>
+    <p>Last Name: @Model.LastName</p>
+    <p>Street Address: @Model.StreetName</p>
+    <p>City: @Model.City</p>
+    <p>State: @Model.State</p>
+    <p>Zip Code: @Model.ZipCode</p>
+</div>

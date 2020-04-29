@@ -8,7 +8,7 @@
         Function - Create, Cancel, Modify
     Major Decisions: Use json files for ease of use and modifying.
 */
-using System;
+/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,14 +43,14 @@ namespace white_rice_booking.Controllers
             _reservations = GetReservations(_db);
         }
 
-        /*
+        
             Name: Create
             Date Last Updated: 2020-04-18
             Last Updated Progammer Name: Timothy Bui
             Description: This function creates a reservation object that is saved to the reservations.json file.
             The file consists of a passenger's first/last name as well as the flight ID(s) and user account ID.
             Each reservation is assigned a "Reservation ID".
-        */
+        
         [HttpGet]
         [Route("create/{firstName}/{lastName}/{departID}/{returnID}/{userID}")]
         public List<Reservation> Create(string firstName, string lastName, 
@@ -73,14 +73,14 @@ namespace white_rice_booking.Controllers
             return _reservations;
         }
 
-        /*
+        
             Name: Cancel
             Date Last Updated: 2020-04-18
             Last Updated Progammer: Timothy Bui
             Description: This function deletes a reservation from the reservations.json file.
             The function takes in a reservation ID and checks to see if any reservation exists
             with that given ID. If yes, that associated reservation is deleted.
-        */
+        
         [HttpGet]
         [Route("cancel/{reservationID}")]
         public ActionResult<Reservation> Cancel(int reservationID)
@@ -98,13 +98,13 @@ namespace white_rice_booking.Controllers
             return null;
         }
 
-        /*
+        
             Name: Modify
             Date Last Updated: 2020-04-18
             Last Updated Progammer: Timothy Bui
             Description: This function creates a new reservation using info tied to an existing reservation 
             and calling "Create". Then, the original reservation is deleted using "Cancel".
-        */
+        
         [HttpGet]
         [Route("modify/{reservationID}/{departID}/{returnID}")]
         public ActionResult<Reservation> Modify(int reservationID, int departID, int returnID)
@@ -132,12 +132,12 @@ namespace white_rice_booking.Controllers
             return null;
         }
 
-        /*
+        
             Name: Get Reservations
             Date Last Updated: 2020-04-18
             Last Updated Progammer: Timothy Bui
             Description: This function creates a new list of Reservations if it doesn't exist yet.
-        */
+        
         private static List<Reservation> GetReservations(string path)
         {
             string reservations = System.IO.File.ReadAllText(path);
@@ -156,4 +156,4 @@ namespace white_rice_booking.Controllers
             return @JsonConvert.SerializeObject(_reservations);
         }
     }
-}
+}*/

@@ -15,32 +15,7 @@ namespace white_rice_booking.Pages
     {
         private readonly ILogger<ReservationsModel> _logger;
 
-        [BindProperty(SupportsGet = true)]
-        public int depart_ID{ get; set; }
-
-        [BindProperty(SupportsGet = true)]
-        public int return_ID{ get; set; }
         
-        [BindProperty(SupportsGet = true)]
-        public string first_name{ get; set; }
-        
-        [BindProperty(SupportsGet = true)]
-        public string last_name{ get; set; }
-        
-        [BindProperty(SupportsGet = true)]
-        public string street_address{ get; set; }
-        
-        [BindProperty(SupportsGet = true)]
-        public int apt_num{ get; set; }
-        
-        [BindProperty(SupportsGet = true)]
-        public string city{ get; set; }
-        
-        [BindProperty(SupportsGet = true)]
-        public string state{ get; set; }
-        
-        [BindProperty(SupportsGet = true)]
-        public int zip_code{ get; set; }
 
 
         public ReservationsModel(ILogger<ReservationsModel> logger)
@@ -55,8 +30,8 @@ namespace white_rice_booking.Pages
 
         public IActionResult OnPost() 
         {
-            //return RedirectToPage("/My_Trips");
-            return Page();
+            return RedirectToPage("/ReservationConfirm");
+            //return Page();
         }
         // NOTE TO SELF: (DELETE LATER)
         /* AFTER reservation & payment has been made, REDIRECT user to HOME PAGE (OR MY TRIPS PAGE) */
