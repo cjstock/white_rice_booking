@@ -19,9 +19,6 @@ namespace white_rice_booking.Services
 {
     public class AccountService
     {
-        // TODO: Creates a login token used to validate the user is logged in
-        private readonly int _loginToken;
-
         private IEnumerable<UserAccount> _users;
 
         public IWebHostEnvironment WebHostEnvironment { get; }
@@ -84,9 +81,24 @@ namespace white_rice_booking.Services
 
         /* When "login" button is pressed, log the user in by giving them a
         login token */
-        public ActionResult<UserAccount> Login(string email, string password)
+        public bool Login(string emailAddress, string password)
         {
-            return null;
+            var users = GetUserAccounts();
+
+            var account = users.FirstOrDefault(x => x.Email == emailAddress);
+
+            if (account != null)
+            {
+                if (account.Password == password)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            return false;
+
         }
 
         /* When the user presses the "modify info" button, take the changed

@@ -1,8 +1,8 @@
 @page
-@model SignUpModel
+@model LoginModel
 @addTagHelper *, Microsoft.AspNetCore.Mcv.TagHelpers
 @{
-    ViewData["Title"] = "Sign Up"; // Adds "My Trips" to ViewData dictionary
+    ViewData["Title"] = "Login"; // Adds "My Trips" to ViewData dictionary
 }
 <h1>@ViewData["Title"]</h1>
 
@@ -14,10 +14,6 @@
     <div>
     Password:
     <input asp-for="@Model.UserAccount.Password" />
-    </div>
-    <div>
-    Confirm Password:
-    <input asp-for="@Model.confirmedPassword" />
     </div>
 
     <input type="submit"/>
