@@ -68,7 +68,7 @@ namespace white_rice_booking.Services
             _reservations = reservationList.AsEnumerable();
             
             //Write to data
-            decrementSeat(departID);
+            //decrementSeat(departID);
             WriteToFile(JsonFileName, _reservations);
             return _reservations;
         }
@@ -213,6 +213,77 @@ namespace white_rice_booking.Services
             get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "reservations.json"); }
         }
 
+        public string FindFlightInfo(int Flight_ID){
+            int route_id = 0;
+            int depart_id = 0;
+            int arrival_id = 0;
+            string depart_airport_name = "";
+            string depart_city_name = "";
+            string arrival_airport_name = "";
+            string arrival_city_name = "";
+
+            using (var flight_reader = new StreamReader(FlightsFileName))
+            //using (var csv = new CsvReader(flight_reader, CultureInfo.InvariantCulture))
+            {
+                var records = System.Text.Json.JsonSerializer.Deserialize<Flights[]>(flight_reader.ReadToEnd());
+
+                // Loops through the file to look for the departure airport based on user input
+                foreach (var record in records)
+                {
+                    if(Flight_ID == record.Flight_ID){
+                        route_id = record.Route_ID;
+                    }
+                }
+            }
+
+            using (var route_reader = new StreamReader(RouteFileName))
+            using (var csv = new CsvReader(route_reader, CultureInfo.InvariantCulture))
+            {
+                var records = csv.GetRecords<Routes>();
+                // Loops through the file to look for the departure airport based on user input
+                foreach (var record in records)
+                {
+                    // Checks if the departure airport ID and arrival airport ID match in the 
+                    // database then returns the id of the route
+                    if(route_id == record.Route_ID){
+                            depart_id = record.Source_OpenFlights_ID;
+                            arrival_id = record.Destination_OpenFlights_ID;
+                    }
+                }
+            }
+
+            using (var airport_reader = new StreamReader(AirportFileName))
+            using (var csv = new CsvReader(airport_reader, CultureInfo.InvariantCulture))
+            {
+                var records = csv.GetRecords<Airport>();
+                // Loops through the file to look for the departure airport based on user input
+                foreach (var record in records)
+                {
+                    // Checks if input matches in database and stores the arrival airport id in a variable
+                    if(depart_id == record.OpenFlights_ID){
+                        depart_airport_name = record.Airport_Name;
+                        depart_city_name = record.City_Name;    
+                    }
+
+                    if(arrival_id == record.OpenFlights_ID){
+                        arrival_airport_name = record.Airport_Name;
+                        arrival_city_name = record.City_Name;    
+                    }
+                }
+            }
+            return depart_airport_name + "," + depart_city_name + "," + arrival_airport_name + "," + arrival_city_name;
+        }
+
+        private string AirportFileName
+        {
+            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "top_10_airports.csv"); }
+        }
+
+        // This property uses a path to get the routes database csv file to be used by a function
+        private string RouteFileName
+        {
+            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "top_10_routes.csv"); }
+        }
     
     }
 }

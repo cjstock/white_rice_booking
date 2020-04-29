@@ -14,6 +14,15 @@ namespace white_rice_booking.Pages
     public class ReservationConfirmModel : PageModel
     {
         private readonly ILogger<ReservationConfirmModel> _logger;
+        
+        private ReservationService _reservationService;
+        
+        public ReservationConfirmModel(ILogger<ReservationConfirmModel> logger, ReservationService reservationService)
+        {
+            _logger = logger;
+            _reservationService = reservationService;
+        }
+
         [BindProperty(SupportsGet = true)]
         public int depart_ID{ get; set; }
 
@@ -29,9 +38,6 @@ namespace white_rice_booking.Pages
         [BindProperty(SupportsGet = true)]
         public string StreetName{ get; set; }
         
-        //[BindProperty(SupportsGet = true)]
-        //public int AptNum{ get; set; }
-        
         [BindProperty(SupportsGet = true)]
         public string City{ get; set; }
         
@@ -43,11 +49,20 @@ namespace white_rice_booking.Pages
 
         public void OnGet()
         {
+            //display everything
+            int flightID = 0;
+            
+            //seats, date, time, depart airport, depart city, arrival airport, arrival city, billing
 
+            
+            string temp = _reservationService.FindFlightInfo(flightID);
+            string[] words = temp.Split(',');
         }
 
         public IActionResult OnPost()
         {
+            int userID = 159753;
+            _reservationService.Create(FirstName, LastName, depart_ID, return_ID, userID);
             return Page();
         }
     }
