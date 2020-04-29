@@ -54,9 +54,9 @@ namespace white_rice_booking.Pages
             
             //seats, date, time, depart airport, depart city, arrival airport, arrival city, billing
 
-            
+
             string temp = _reservationService.FindFlightInfo(flightID);
-            string[] words = temp.Split(',');
+            string[] words = temp.Split(','); //string array output 
         }
 
         public IActionResult OnPost()

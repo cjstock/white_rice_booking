@@ -271,7 +271,10 @@ namespace white_rice_booking.Services
                     }
                 }
             }
-            return depart_airport_name + "," + depart_city_name + "," + arrival_airport_name + "," + arrival_city_name;
+            string output = route_id.ToString() + "," + depart_id.ToString() + "," + arrival_id.ToString() + "," + 
+            depart_airport_name + "," + depart_city_name + "," + arrival_airport_name + "," + arrival_city_name;
+            
+            return output;
         }
 
         private string AirportFileName
