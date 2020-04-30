@@ -48,3 +48,5 @@ obj/Debug/netcoreapp3.1/Razor/Pages/Reservations.cshtml.g.cs
 obj/Debug/netcoreapp3.1/Razor/Pages/SignUp.cshtml.g.cs
 obj/Debug/netcoreapp3.1/Razor/Pages/Shared/_Layout.cshtml.g.cs
 obj/Debug/netcoreapp3.1/Razor/Pages/Shared/_ValidationScriptsPartial.cshtml.g.cs
+obj/Debug/netcoreapp3.1/white_rice_booking.assets.cache
+obj/Debug/netcoreapp3.1/white_rice_booking.csprojAssemblyReference.cache
