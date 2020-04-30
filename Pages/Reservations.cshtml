@@ -1,13 +1,54 @@
-@page
+@page 
 @model ReservationsModel
 @{
-    ViewData["Title"] = "Reservations"; // Adds "My Trips" to ViewData dictionary
+    ViewData["Title"] = "Reservations";
 }
-<h1>@ViewData["Title"]</h1>
 
+<h1>Reservations</h1>
 
+<!-- Form for reserving a desired flight from a list of filtered flights information -->
+<div class="row">
+    <div class="col-md-4">
+        <form asp-page="/ReservationConfirm" method="post">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+            <div class="form-group">
+                <label for="depart_ID">Depart ID</label>
+                <input type="text" name="depart_ID" placeholder=""/>
+            </div>
+
+            <div class="form-group">
+                <label for="return_ID">Return ID</label>
+                <input type="text" name="return_ID" placeholder=""/>
+            </div>       
+            <div class="form-group">
+                <label for="FirstName">First Name</label>
+                <input type="text" name="FirstName" placeholder=""/>
+            </div> 
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" name="LastName" placeholder=""/>
+            </div> 
+            <div class="form-group">
+                <label for="street_address">Street Address</label>
+                <input type="text" name="StreetName" placeholder=""/>
+            </div> 
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" name="City" placeholder=""/>
+            </div> 
+            <div class="form-group">
+                <label for="state">State</label>
+                <input type="text" name="State" placeholder=""/>
+            </div> 
+            <div class="form-group">
+                <label for="ZipCode">Zip Code</label>
+                <input type="text" name="ZipCode" placeholder=""/>
+            </div> 
+            <div class="form-group">
+                <!--<input type="submit" value="Submit">-->
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
 </div>

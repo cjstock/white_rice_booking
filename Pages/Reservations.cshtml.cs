@@ -27,9 +27,10 @@ namespace white_rice_booking.Pages
 
         public IActionResult OnPost() 
         {
-            return RedirectToPage("/My_Trips");
+            return RedirectToPage("/ReservationConfirm");
+            //return Page();
         }
-// NOTE TO SELF: (DELETE LATER)
+        // NOTE TO SELF: (DELETE LATER)
         /* AFTER reservation & payment has been made, REDIRECT user to HOME PAGE (OR MY TRIPS PAGE) */
     }
 }

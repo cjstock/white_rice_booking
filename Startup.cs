@@ -30,7 +30,6 @@ namespace white_rice_booking
             services.AddControllers();
             services.AddRazorPages();
             services.AddTransient<AccountService>();
-            services.AddTransient<FilterFlightsService>();
             services.AddTransient<ReservationService>();
         }
 
