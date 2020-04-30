@@ -8,6 +8,9 @@
     <p>Return ID: @Model.return_ID</p>
     <p>First Name: @Model.FirstName</p>
     <p>Last Name: @Model.LastName</p>
+    <p>Card Number: @Model.CardNumber</p>
+    <p>Expiration Date: @Model.ExpirationDate</p>
+    <p>CVV: @Model.CVV</p>
     <p>Street Address: @Model.StreetName</p>
     <p>City: @Model.City</p>
     <p>State: @Model.State</p>
@@ -19,4 +22,15 @@
     <p>Departing City: @Model.depart_city_name</p>
     <p>Arriving Airport: @Model.arrival_airport_name</p>
     <p>Arriving City: @Model.arrival_city_name</p>
+</div>
+<!-- Form for reserving a desired flight from a list of filtered flights information -->
+<div class="row">
+    <div class="col-md-4">
+        <form asp-page="/My_Trips" method="post">
+            <div class="form-group">
+                <!--<input type="submit" value="Submit">-->
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
 </div>

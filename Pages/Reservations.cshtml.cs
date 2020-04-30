@@ -15,9 +15,6 @@ namespace white_rice_booking.Pages
     {
         private readonly ILogger<ReservationsModel> _logger;
 
-        
-
-
         public ReservationsModel(ILogger<ReservationsModel> logger)
         {
             _logger = logger;

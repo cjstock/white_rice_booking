@@ -28,12 +28,21 @@ namespace white_rice_booking.Pages
 
         [BindProperty(SupportsGet = true)]
         public int return_ID{ get; set; }
-        
+
         [BindProperty(SupportsGet = true)]
         public string FirstName{ get; set; }
         
         [BindProperty(SupportsGet = true)]
         public string LastName{ get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public long CardNumber{ get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string ExpirationDate{ get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int CVV{ get; set; }
         
         [BindProperty(SupportsGet = true)]
         public string StreetName{ get; set; }
