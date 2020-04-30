@@ -1,5 +1,15 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+/*
+    Name: Index
+    Date Last Updated: 4-27-2020
+    Programmer Names: Justin Tran
+    Description: This file shall describe the presentation of the HTML content of the webpages, which
+                includes, but is not limited to, spacing between each item, background color, and fonts
+    Important Methods/Structures/Etc: 
+            Model - Index.cshtml.cs
+    Major Decisions: N/A
+*/
 
 a.navbar-brand {
   white-space: normal;
@@ -24,20 +34,37 @@ a {
   border-color: #1861ac;
 }
 
-.navbar-brand {
-  clear:both;
-}
-
+/* Position contents on left side of navigation bar */
 .nav-left {
   float: left;
 }
 
+/* Position contents on right side of navigation bar */
 .nav-right {
   float: right;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+
+/* Button formatting styles */
+.button {
+  background-color: rgb(184, 0, 0); /* Red */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+/* Button with a blue background */
+.button-blue {
+  background-color: #008CBA; /* Blue */
+}
+
+/* Text formatting for HTML content */
 html {
   font-size: 14px;
 }
@@ -63,13 +90,13 @@ button.accept-policy {
   line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+/* Sticky footer styles */
 html {
   position: relative;
   min-height: 100%;
 }
 
+/* Formatting for contents in body of web page */
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
@@ -82,5 +109,60 @@ body {
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+
+/* Formatting for important text */
+strong {
+  font-weight: bold; 
+}
+
+
+/* Input boxes on the same row */
+.row {
+  display: table;
+  width: 100%; 
+  table-layout: fixed;
+  border-spacing: 10px;
+}
+
+/* Padding adjustment for first input box in table row */
+.column-start-box1 {
+  display: table-cell;
+  /* margin-right: 30px; */
+  padding-right: 60px;
+}
+
+/* Padding adjustment for second input box in table row */
+.column-pad-box2 {
+  display: table-cell;
+  padding-right: 20px;
+}
+
+/* No padding on the left and right sides of input box */
+.column-zero-pad {
+  display: table-cell;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+/* Padding adjustment for third input box in table row */
+.column-pad-box3 {
+  display: table-cell;
+  padding-left: 20px;
+  padding-right: 0px;
+}
+
+/* Padding adjustment for fourth input box in table row */
+.column-pad-box4 {
+  display: table-cell;
+  padding-left: 0px;
+  padding-right: 40px;
+}
+
+
+/* Form box with specified width format */
+input.input-small-box {
+  width: 100px;
 }
 

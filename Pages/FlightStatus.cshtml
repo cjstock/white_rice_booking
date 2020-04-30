@@ -1,0 +1,40 @@
+@page
+@model FlightStatusModel
+@{
+    ViewData["Title"] = "Flight Status"; // Adds "My Trips" to ViewData dictionary
+}
+<h1>@ViewData["Title"]</h1>
+
+<!-- Input boxes for Flight Status -->
+<div class="text-left row">
+    <form method="post">
+        
+        <div class="item column-start-box1">
+            <!-- Input box for Scheduled Flight Date -->
+            <!-- <label for="scheduled_date">Return Date<span>*</span></label> -->
+            <input type="text" name="scheduled_date" placeholder="Scheduled Flight Date"/>
+        </div>
+
+        <div class="item column-pad-box2">
+            <!-- Input box for Scheduled Flight Date -->
+            <!-- <label for="flight_num">Flight Number<span>*</span></label> -->
+            <input type="text" name="flight_num" placeholder="Flight Number"/>
+        </div>
+
+        <p class="column-zero-pad">or</p>
+
+        <div class="item column-pad-box3">
+            <input type="text" name="from" placeholder="From" class="input-small-box"/>
+        </div>
+
+        <p class="column-zero-pad">:</p>
+
+        <div class="item column-pad-box4">
+            <input type="text" name="to" placeholder="To" class="input-small-box"/>
+        </div>
+
+        <div class="item column-pad-box3">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</div>    

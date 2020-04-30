@@ -6,6 +6,8 @@ ENV ASPNETCORE_URLS=http://*:5000
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /src
 COPY ["white_rice_booking.csproj", "./"]
+RUN dotnet add package CsvHelper
+RUN dotnet add package Newtonsoft.Json
 RUN dotnet restore "./white_rice_booking.csproj"
 COPY . .
 WORKDIR "/src/."

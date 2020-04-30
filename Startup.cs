@@ -26,6 +26,7 @@ namespace white_rice_booking
             services.AddRazorPages();
             services.AddTransient<AccountService>();
             services.AddSession();
+            services.AddTransient<FilterFlightsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +39,7 @@ namespace white_rice_booking
 
             app.UseSession();
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles(); // Allows HTML, CSS, images, and JavaScript files in wwwroot 
                                   // to be used
             app.UseRouting();

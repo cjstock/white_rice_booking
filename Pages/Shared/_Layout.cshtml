@@ -1,5 +1,16 @@
 @using Microsoft.AspNetCore.Http;
 @using System.Text;
+<!--
+    Name: Index
+    Date Last Updated: 4-27-2020
+    Programmer Names: Justin Tran
+    Description: This file displays the front-end UI that all of the razor pages share, especially
+                 the top navigation bar and the footer bar
+    Important Methods/Structures/Etc: <nav .. >  .... </nav>,
+                                      RenderBody (in <main> ... </main>)
+    Major Decisions: N/A
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +24,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-blue border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Flights "R" Us</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index"><strong>Flights "R" Us</strong></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -31,7 +42,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/My_Trips">My Trips</a>
                         </li>
                         <li class="nav-left">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Flight_Status">Flight Status</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/FlightStatus">Flight Status</a>
                         </li>
 
                     </ul>
@@ -76,16 +87,19 @@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
-
         </main>
     </div>
-
 
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2020 - WhiteRiceBooking - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
+
+    <!-- Includes static JavaScript files for use -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
 </body>
