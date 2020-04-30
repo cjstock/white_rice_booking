@@ -17,21 +17,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using System.Globalization;
 using System.IO;
-using System.Text.Json;
-using System.Web;
-using System.Net;
 using CsvHelper;
-using System.Net.Http;
-using white_rice_booking.Models;
 using Microsoft.AspNetCore.Hosting;
-using Newtonsoft.Json;
 
 namespace white_rice_booking.Services
 {

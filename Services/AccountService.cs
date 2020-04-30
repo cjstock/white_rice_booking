@@ -1,17 +1,9 @@
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using System.Globalization;
 using System.IO;
 using System.Text.Json;
-using System.Web;
-using System.Net;
-using System.Net.Http;
 using white_rice_booking.Models;
 using Microsoft.AspNetCore.Hosting;
 
@@ -20,7 +12,6 @@ namespace white_rice_booking.Services
     public class AccountService
     {
         // TODO: Creates a login token used to validate the user is logged in
-        private readonly int _loginToken;
 
         private IEnumerable<UserAccount> _users;
 
