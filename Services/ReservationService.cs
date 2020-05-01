@@ -221,6 +221,8 @@ namespace white_rice_booking.Services
             string depart_city_name = "";
             string arrival_airport_name = "";
             string arrival_city_name = "";
+            string flight_date = "";
+            string flight_time = "";
 
             using (var flight_reader = new StreamReader(FlightsFileName))
             //using (var csv = new CsvReader(flight_reader, CultureInfo.InvariantCulture))
@@ -232,6 +234,8 @@ namespace white_rice_booking.Services
                 {
                     if(Flight_ID == record.Flight_ID){
                         route_id = record.Route_ID;
+                        flight_date = record.Date;
+                        flight_time = record.Time;
                     }
                 }
             }
@@ -272,7 +276,8 @@ namespace white_rice_booking.Services
                 }
             }
             string output = route_id.ToString() + "," + depart_id.ToString() + "," + arrival_id.ToString() + "," + 
-            depart_airport_name + "," + depart_city_name + "," + arrival_airport_name + "," + arrival_city_name;
+            depart_airport_name + "," + depart_city_name + "," + arrival_airport_name + "," + arrival_city_name +
+            "," + flight_date + "," + flight_time;
             
             return output;
         }

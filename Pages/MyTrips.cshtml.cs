@@ -1,3 +1,14 @@
+/*
+    Name: My Trips
+    Date Last Updated: 4-30-2020
+    Programmer Names: Justin Tran, Corey Stock
+    Description: This class shall __________
+    Important Methods/Structures/Etc: 
+            Functions - (fill in the blank)
+    Major Decisions: 
+            - (fill in the blank, if any) (if none, put N/A)
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,17 +61,22 @@ namespace white_rice_booking.Pages
 
         public void OnGet()
         {
-            // Reservation ID
+            // Get reservation ID based on user's ID
 
-            // Outbound IDs and Inbound IDs used to display date,time, airport names
-
-            //_reservationService.
+            // Using reservation ID, obtain associated Outbound ID, Inbound ID, date, 
+            // time, airport names
         } 
 
         public IActionResult OnPost()
         {
             return Page();
         
+        }
+
+        // Cancel desired reserved flight based on user ID 
+        public IActionResult OnPostCancel() {
+            
+            return Page();
         }
     }
 }

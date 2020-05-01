@@ -5,79 +5,92 @@
 }
 
 <!--
-    Name: Index
-    Date Last Updated: 4-27-2020
+    Name: Filter Flights
+    Date Last Updated: 4-30-2020
     Programmer Names: Justin Tran, William Yung
-    Description: This file displays the front-end UI of the Filter Flights Service class and 
-                 allows users to access the flight filter function
-    Important Methods/Structures/Etc: <form method="post"> .... </form>, 
-                                      <input type="radio" asp-for="" .... />
-    Major Decisions: N/A
+    Description: This file generates the front-end UI of the Filter Flights Service class and 
+                 allows users to access the flight filter function.
+    Important Methods/Structures/Etc: 
+            - HTML Tags - <form method="post"> .... </form>, 
+                          <input type="radio" asp-for="" .... />
+    Major Decisions: Using radio buttons instead of having multiple "select" buttons to the right
+                     of each flight information (on each row) reduces the amount of "select" buttons
+                     on the page, thus the user-interface simple and easier to follow. 
 -->
 
 <h1>@ViewData["Title"]</h1>
 
 <div>
-    <form method="post">
-        <!-- Table displaying list of available outgoing/outbound flights -->
-        <h2>Available Outgoing Flights</h2>
-        <table style="width:100%">
-            <!-- Row of titles for each column -->
-            <tr>
-                <th>Flight ID</th>
-                <th>Date</th> 
-                <th>Time</th>
-                <th>Seats</th> 
-                <th>Price</th>
-            </tr>
-            @foreach (var flight in @Model.availableOutgoingFlights)
+    <!-- Form for selecting a flight from a list of available outbound and/or inbound flights -->
+    <form asp-page-handler="ChooseFlight" method="post">
+        <div>    
+            <!-- Table displaying list of available outgoing/outbound flights -->
+            <h2>Available Outbound Flights</h2>
+            <table style="width:100%">
+                <!-- Row of titles for each column -->
+                <tr>
+                    <th>Flight ID</th>
+                    <th>Date</th> 
+                    <th>Time</th>
+                    <th>Seats</th> 
+                    <th>Price</th>
+                </tr>
+                @foreach (var flight in Model.availableOutgoingFlights)
+                {
+                // Row of outgoing/outbound flight information
+                <tr>
+                    @*Radio button group that allows selection of one item out of a group of
+                        listed options*@
+                    @*<td><input type="radio" asp-for="outbound_ID" value="@flight.Flight_ID" />@flight.Flight_ID</td>*@
+                    <td><input type="radio" name="outbound_ID" value="@flight.Flight_ID" 
+                            asp-page/>@flight.Flight_ID</td>
+                    <td>@flight.Date</td>
+                    <td>@flight.Time</td>
+                    <td>@flight.Seats</td>
+                    <td>@flight.Price</td>
+                </tr>
+                }
+            </table>
+        </div>
+        
+        <div>
+            <!-- If user selected "Round Trip", then display the inbound flight info -->
+            @if(Model.TripType == "T") 
             {
-            // Row of outgoing/outbound flight information
-            <tr>
-                @*Radio button group that allows selection of one item out of a group of
-                    listed options*@
-                <td><input type="radio" asp-for="outbound_ID" value="@flight.Flight_ID" />@flight.Flight_ID</td>
-                <td>@flight.Date</td>
-                <td>@flight.Time</td>
-                <td>@flight.Seats</td>
-                <td>@flight.Price</td>
-            </tr>
-            }
-        </table>
-
-        <!-- Table displaying list of available inbound flights -->
-        <h2>Available Inbound Flights</h2>
-        <table style="width:100%">
-            <!-- Row of titles for each column -->
-            <tr>
-                <th>Flight ID</th>
-                <th>Date</th> 
-                <th>Time</th>
-                <th>Seats</th> 
-                <th>Price</th>
-            </tr>
-            @foreach (var flight in @Model.availableIncomingFlights)
-            {
-            // Row of inbound flight information
-            <tr>
-                @*Radio button group that allows selection of one item out of a group of
-                    listed options*@
-                <td><input type="radio" asp-for="inbound_ID" value="@flight.Flight_ID" />@flight.Flight_ID</td>
-                <td>@flight.Date</td>
-                <td>@flight.Time</td>
-                <td>@flight.Seats</td>
-                <td>@flight.Price</td>
-            </tr>
-            }
-        </table>
+                // Table displaying list of available inbound flights
+                <h2>Available Inbound Flights</h2>
+                <table style="width:100%">
+                    @* Row of titles for each column *@
+                    <tr>
+                        <th>Flight ID</th>
+                        <th>Date</th> 
+                        <th>Time</th>
+                        <th>Seats</th> 
+                        <th>Price</th>
+                    </tr>
+                    @foreach (var flight in Model.availableIncomingFlights)
+                    {
+                    // Row of inbound flight information
+                    <tr>
+                        @*Radio button group that allows selection of one item out of a group of
+                            listed options*@
+                        @*<td><input type="radio" asp-for="inbound_ID" value="@flight.Flight_ID" />@flight.Flight_ID</td>*@
+                        <td><input type="radio" name="inbound_ID" value="@flight.Flight_ID" />@flight.Flight_ID</td>
+                        <td>@flight.Date</td>
+                        <td>@flight.Time</td>
+                        <td>@flight.Seats</td>
+                        <td>@flight.Price</td>
+                    </tr>
+                    }
+                </table>  
+            }  
+        </div>
 
         <!-- "Submit" button at the end of the form -->
         <div class="form-group">
-            <input type="submit" value="Submit" class="btn btn-primary" />
+            <!-- Stores selected outbound and/or inbound flights via IDs -->
+            <input type="submit" value="Next Page" class="btn btn-primary" />
         </div>
 
     </form>
 </div>
-
-<p>@Model.outbound_ID</p>
-<p>@Model.inbound_ID</p>

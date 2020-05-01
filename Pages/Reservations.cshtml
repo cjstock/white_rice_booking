@@ -1,54 +1,163 @@
 @page 
 @model ReservationsModel
 @{
-    ViewData["Title"] = "Reservations";
+    ViewData["Title"] = "Reservation Checkout";
 }
 
-<h1>Reservations</h1>
+<!--
+    Name: Reservations
+    Date Last Updated: 4-30-2020
+    Programmer Names: Justin Tran, Timothy Bui
+    Description: This file generates the front-end UI of the Reservations class,  
+                 allows users to fill in their personal information for billing, and
+                 verify the flight information before finalizing their flight reservation.
+    Important Methods/Structures/Etc: 
+            - HTML Tags - <form asp-page-handler="Confirm" method="post"> .... </form>, 
+                          <input type="submit" value="Confirm" class="btn btn-primary" 
+                                asp-page-handler="Confirm" />
+    Major Decisions: 
+            - Using a modal/popup box for allowing the user to verify and confirm that the 
+              information of the flight he or she wanted is correct instead of displaying all
+              of that information on another page reduces the need to transfer 
+              values from one page to another, thus reducing the likelihood of declaring the 
+              same variable names on both pages involved in this data transfer. 
+              This decision also helps us to navigate the paths at which the program is 
+              following when debugging logical errors in the code since there are 
+              less pages to deal with.
+-->
 
-<!-- Form for reserving a desired flight from a list of filtered flights information -->
+<h1>Order Checkout</h1>
+
+<!-- Form for filling in billing information to finish reserving a desired flight from 
+     a list of filtered flights information -->
 <div class="row">
     <div class="col-md-4">
-        <form asp-page="/ReservationConfirm" method="post">
+        <!--<form asp-page="/ReservationConfirm" method="post">-->
+        <form asp-page-handler="Confirm" method="post">
 
-            <div class="form-group">
-                <label for="depart_ID">Depart ID</label>
-                <input type="text" name="depart_ID" placeholder=""/>
-            </div>
-
-            <div class="form-group">
-                <label for="return_ID">Return ID</label>
-                <input type="text" name="return_ID" placeholder=""/>
-            </div>       
+            <!-- Input box for user/passenger's first name -->
             <div class="form-group">
                 <label for="FirstName">First Name</label>
                 <input type="text" name="FirstName" placeholder=""/>
             </div> 
+
+            <!-- Input box for user/passenger's last name -->
             <div class="form-group">
                 <label for="last_name">Last Name</label>
                 <input type="text" name="LastName" placeholder=""/>
             </div> 
+
+            <!-- Input box for credit card number -->
+            <div class="form-group">
+                <label for="CardNumber">Card Number</label>
+                <input type="text" name="CardNumber" placeholder=""/>
+            </div> 
+
+            <!-- Input box for expiration date of credit card -->
+            <div class="form-group">
+                <label for="ExpirationDate">Expiration Date (MMYY)</label>
+                <input type="text" name="ExpirationDate" placeholder=""/>
+            </div> 
+
+            <!-- Input box for CVV of credit card --> 
+            <div class="form-group">
+                <label for="CVV">CVV</label>
+                <input type="text" name="CVV" placeholder=""/>
+            </div> 
+
+            <!-- Input box for street name of user/passenger's residence -->
             <div class="form-group">
                 <label for="street_address">Street Address</label>
                 <input type="text" name="StreetName" placeholder=""/>
             </div> 
+
+            <!-- Input box for city of user/passenger's residence -->
             <div class="form-group">
                 <label for="city">City</label>
                 <input type="text" name="City" placeholder=""/>
             </div> 
+
+            <!-- Input box for state of residence (for user/passenger) -->
             <div class="form-group">
                 <label for="state">State</label>
                 <input type="text" name="State" placeholder=""/>
             </div> 
+
+            <!-- Input box for zip code of user/passenger's residence -->
             <div class="form-group">
                 <label for="ZipCode">Zip Code</label>
                 <input type="text" name="ZipCode" placeholder=""/>
             </div> 
+
             <div class="form-group">
-                <!--<input type="submit" value="Submit">-->
-                <input type="submit" value="Submit" class="btn btn-primary" />
+                <!-- Button to trigger modal/popup box code below -->
+                <button type="submit" class="btn btn-primary" data-toggle="modal" 
+                    data-target="#verifyCheckout">Verify
+                </button>
             </div>
 
         </form>
+    </div>
+</div>
+
+
+<!-- Modal/Popup box for verifying and confirming a reservation checkout -->
+<div>
+    <!-- 
+        Title: Modal
+        Author: Bootstrap Staff
+        Date: N/A
+        Code version: N/A
+        Availability: https://getbootstrap.com/docs/4.0/components/modal/#varying-modal-content
+    -->
+    <div class="modal fade" id="verifyCheckout" tabindex="-1" role="dialog" 
+        aria-labelledby="verifyCheckoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm Reservation</h5>
+
+                <!-- "X" button on top right of modal/popup box -->
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Text for main body of popup box -->
+            <div class="modal-body">
+                <h3>Are you sure you want to reserve this flight?</h4>
+                
+                <!-- Display outbound flight information -->
+                <h4>Outbound Flight</h4>
+                <p>Departing Airport: @Model.outbound_depart_airport_name</p>
+                <p>Departing City: @Model.outbound_depart_city_name</p>
+                <p>Arriving Airport: @Model.outbound_arrival_airport_name</p>
+                <p>Arriving City: @Model.outbound_arrival_city_name</p>
+                <p>Departure Date: @Model.outbound_flight_date</p>
+                <p>Departure Date: @Model.outbound_flight_time</p>
+
+                <!-- If user chose "Roundtrip", then display inbound flight information -->
+                @if (@Model.TripType == "T")
+                {
+                    @* Display inbound flight information *@
+                    <h4>Inbound Flight</h4>
+                    <p>Departing Airport: @Model.inbound_depart_airport_name</p>
+                    <p>Departing City: @Model.inbound_depart_city_name</p>
+                    <p>Arriving Airport: @Model.inbound_arrival_airport_name</p>
+                    <p>Arriving City: @Model.inbound_arrival_city_name</p>
+                    <p>Departure Date: @Model.inbound_flight_date</p>
+                    <p>Departure Date: @Model.inbound_flight_time</p>
+                }
+            </div>
+
+            <!-- Two buttons at bottom of popup box -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <!-- Clicking on "Confirm" button triggers OnPostConfirm() (in Reservations.cs)
+                    and takes user to MyTrips page --> 
+                <input type="submit" value="Confirm" class="btn btn-primary" asp-page-handler="Confirm" />
+            </div>
+            </div>
+        </div>
     </div>
 </div>

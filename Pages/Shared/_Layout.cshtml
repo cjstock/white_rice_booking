@@ -2,10 +2,11 @@
     Name: Index
     Date Last Updated: 4-27-2020
     Programmer Names: Justin Tran
-    Description: This file displays the front-end UI that all of the razor pages share, especially
-                 the top navigation bar and the footer bar
-    Important Methods/Structures/Etc: <nav .. >  .... </nav>,
-                                      RenderBody (in <main> ... </main>)
+    Description: This file generates the front-end UI that all of the razor pages share, especially
+                 the top navigation bar and the footer bar.
+    Important Methods/Structures/Etc: 
+            - HTML Tags - <nav .. >  .... </nav>,
+            - Functions - RenderBody (in <main> ... </main>)
     Major Decisions: N/A
 -->
 
@@ -27,21 +28,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <!--
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Book</a>
-                        </li>
-                    </ul>
-                </div>
-                -->
-
-                 
+                
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         
@@ -50,7 +37,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Book</a>
                         </li>
                         <li class="nav-left">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/My_Trips">My Trips</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/MyTrips">My Trips</a>
                         </li>
                         <li class="nav-left">
                             <a class="nav-link text-dark" asp-area="" asp-page="/FlightStatus">Flight Status</a>
@@ -86,7 +73,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - WhiteRiceBooking - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2020 - WhiteRiceBooking
         </div>
     </footer>
 

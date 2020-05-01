@@ -7,9 +7,10 @@
     Name: Index
     Date Last Updated: 4-27-2020
     Programmer Names: Justin Tran, William Yung
-    Description: This file displays the front-end UI of the home page and the Filter Flights Service class,
+    Description: This file generates the front-end UI of the home page and the Filter Flights Service class,
                 which then allows users to access the flight filter function 
-    Important Methods/Structures/Etc: <form method="post"> .... </form>
+    Important Methods/Structures/Etc: 
+            - HTML Tags - <form method="post"> .... </form>
     Major Decisions: N/A
 -->
 
@@ -18,25 +19,19 @@
 <!-- Filter flights form for determining the desirable outbound and/or inbound flights for user -->
 <div class="row">
     <div class="col-md-4">
-        <form asp-page="/FilterFlights" method="post">
+        <form asp-page="/FilterFlights" asp-page-handler="Filter" method="post">
             <!-- Dropdown menu for Trip Type (Round Trip or One-way) -->
             <div class="form-group">
-                <!-- <label for="">Choose a car:</label> -->
                 <select id="TripType" name="TripType">
-                <!--<select asp-for="TripType">-->
                     <option selected value="" disabled>Trip Type</option>
                     <option value="T">Round Trip</option>
                     <option value="O">One Way</option>
                 </select>
-
             </div>
 
             <!-- Dropdown menu for Departing Location (Airport Name) -->
             <div class="form-group">
-                <!-- <label for="">Choose a car:</label> -->
-                
                 <select id="DepartAirport" name="DepartAirport">
-                <!--<select asp-for="DepartAirport">--> 
                     <option selected value="" disabled>Departing Location</option>
                     <option value="SFO">San Francisco International Airport</option>
                     <option value="LAX">Los Angeles International Airport</option>
@@ -59,9 +54,7 @@
 
             <!-- Dropdown menu for Arrival Location (Airport Name) -->
             <div class="form-group">
-                <!-- <label for="">Choose a car:</label> -->
                 <select id="ArrivalAirport" name="ArrivalAirport">
-                <!--<select asp-for="ArrivalAirport">-->
                     <option selected value="" disabled>Arrival Location</option>
                     <option value="SFO">San Francisco International Airport</option>
                     <option value="LAX">Los Angeles International Airport</option>
@@ -83,8 +76,6 @@
 
             <!-- Input box for desired departure date -->
             <div class="form-group">
-                <!--<label for="depart_date">Depart Date<span>*</span></label>-->
-                <!--<label asp-for="depart_date">Depart Date</label>-->
                 <label for="depart_date">Depart Date</label>
                 <!--<input asp-for="depart_date" placeholder="YYYY-MM-DD"/>-->
                 <input type="text" name="depart_date" placeholder="YYYY-MM-DD" />
@@ -92,8 +83,6 @@
 
             <!-- Input box for desired return date -->
             <div class="form-group">
-                <!--<label for="return_date">Return Date<span>*</span></label>-->
-                <!--<label asp-for="return_date">Return Date</label>-->
                 <label for="return_date">Return Date</label>
                 <!--<input asp-for="return_date" placeholder="YYYY-MM-DD"/>-->
                 <input type="text" name="return_date" placeholder="YYYY-MM-DD" />

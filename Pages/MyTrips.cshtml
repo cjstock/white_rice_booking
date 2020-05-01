@@ -3,9 +3,32 @@
 @{
     ViewData["Title"] = "My Trips"; // Adds "My Trips" to ViewData dictionary
 }
+
+<!--
+    Name: My Trips
+    Date Last Updated: 4-30-2020
+    Programmer Names: Justin Tran
+    Description: This file generates the front-end UI for a page that displays all of the
+                 flight reservation information and allows the user to cancel or modify an 
+                 existing flight reservation.
+    Important Methods/Structures/Etc: 
+            - HTML Tags - <button type="button" class="btn btn-primary" data-toggle="modal" 
+                                data-target="#cancelFlight">Cancel</button> 
+                                (for triggering modal/popup box)
+    Major Decisions: 
+            - Using a modal/popup box for allowing the user to cancel an existing reservation 
+              instead of creating another form in another razor page (.cshtml file) and dealing with
+              the back-end flight cancellation code in the paired PageModel (.cshtml.cs file) allows 
+              us to keep all of the back-end code concerning the user's booked flights 
+              within one file.
+              This also reduces the need to transfer values from one page to another, 
+              thus decreasing  the likelihood of declaring the same variable names on both pages 
+              involved in this data transfer. 
+              This decision also helps us to navigate the paths at which the program is following 
+              when debugging logical errors in the code since there are less pages to deal with.
+-->
+
 <h1>@ViewData["Title"]</h1>
-
-
 
 <div class="container">
     <h2>Alerts</h2>
@@ -26,6 +49,7 @@
 <h1>@ViewData["Title"]</h1>
 
 
+@*
 <div>
     <!--<form method="post">-->
     <!-- Table displaying list of available outgoing/outbound flights -->
@@ -66,4 +90,95 @@
     </table>
 
 </div>
+*@
 
+@*
+<div>
+    <!--<form method="post">-->
+    <!-- Table displaying list of available outgoing/outbound flights -->
+    <table style="width:100%">
+        <!-- Horizontal line to separate column titles from header at top of webpage -->
+        <thead>
+            <!-- Row of titles for each column -->
+            <tr>
+                <th>Flight ID</th>
+                <th>Departure Airport</th>
+                <th>Departure City</th>
+                <th>Arrival Airport</th>
+                <th>Arrival City</th>
+                <th>Date</th> 
+                <th>Time</th>
+            </tr>
+        </thead>
+
+        foreach (var myTrip in @Model._________)
+        {
+        // Row of outgoing/outbound flight information
+        <tr>
+            <td>@myTrip.flight_ID</td>
+            <td>@myTrip.DepartureAiport</td>
+            <td>@myTrip.DepartureCity</td>
+            <td>@myTrip.ArrivalAirport</td>
+            <td>@myTrip.ArrivalCity</td>
+            <td>@myTrip.Date</td>
+            <td>@myTrip.Time</td>
+            <td>
+                <!--Buttons to modify or cancel flight (on the right side of flight data)-->
+                <button type="button" class="btn btn-primary">
+                    <a asp-page="./ModifyFlight" asp-route-id="@myTrip.reservation_ID">Modify</a>
+                </button>     |
+                <!-- Button to trigger modal/popup box -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancelFlight">
+                Cancel
+                </button>
+            </td>
+        </tr>
+        }
+
+    </table>
+
+</div>
+
+<!-- Link that takes user back to home page -->
+<div>
+    <a asp-page="/Index">Back to Home</a>
+</div>
+
+
+<!-- Modal/Popup box for cancelling a desired flight -->
+<div>
+    <!-- 
+        Title: Modal
+        Author: Bootstrap Staff
+        Date: N/A
+        Code version: N/A
+        Availability: https://getbootstrap.com/docs/4.0/components/modal/#varying-modal-content
+    -->
+    <form method="post">
+        <div class="modal fade" id="cancelFlight" tabindex="-1" role="dialog" 
+            aria-labelledby="cancelFlightModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cancel Flight</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- Text for main body of popup box -->
+                <div class="modal-body">
+                    <p>Are you sure you want to cancel this flight?</p>
+                </div>
+                <!-- Two buttons at bottom of popup box -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" asp-page-handler="Cancel">Cancel</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+*@
+
+<h2></h2>HEYYYYY YOU MADE IT HERE!</h2>

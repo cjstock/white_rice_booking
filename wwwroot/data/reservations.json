@@ -56,34 +56,10 @@
     "ReservationID": 1000000
   },
   {
-    "PassengerFN": "0",
-    "PassengerLN": "0",
-    "DepartFlightID": 0,
-    "ReturnFlightID": 0,
-    "UserAccountID": 159753,
-    "ReservationID": 1000000
-  },
-  {
-    "PassengerFN": "0",
-    "PassengerLN": "0",
-    "DepartFlightID": 0,
-    "ReturnFlightID": 0,
-    "UserAccountID": 159753,
-    "ReservationID": 1000000
-  },
-  {
-    "PassengerFN": "0",
-    "PassengerLN": "0",
-    "DepartFlightID": 0,
-    "ReturnFlightID": 0,
-    "UserAccountID": 159753,
-    "ReservationID": 1000000
-  },
-  {
-    "PassengerFN": "1",
-    "PassengerLN": "1",
-    "DepartFlightID": 1,
-    "ReturnFlightID": 1,
+    "PassengerFN": "Astolfo",
+    "PassengerLN": "Yung",
+    "DepartFlightID": 573704,
+    "ReturnFlightID": 676644,
     "UserAccountID": 159753,
     "ReservationID": 1000000
   }
