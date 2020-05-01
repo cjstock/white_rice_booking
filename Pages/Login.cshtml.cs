@@ -1,3 +1,13 @@
+/*
+    Name: LoginModel
+    Date Last Updated: 4-30-2020
+    Programmer Names: Corey Stock
+    Description: Defines the 'code-behind' for the Login page. Handles
+        form submission.
+    Important Methods/Structures/Etc:
+        Methods - OnPost
+    Major Decisions: N/A
+*/
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -28,6 +38,12 @@ namespace white_rice_booking.Pages
         [BindProperty(SupportsGet = true)]
         public UserAccount UserAccount { get; set; }
 
+        /*
+            Name: OnPost
+            Date Last Updated: 4-29-2020
+            Last Updated Programmer Name: Corey Stock
+            Description: Handles form submission for the Login page.
+        */
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)

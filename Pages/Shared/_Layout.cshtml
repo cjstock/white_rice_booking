@@ -2,12 +2,14 @@
 @using System.Text;
 <!--
     Name: Index
-    Date Last Updated: 4-27-2020
-    Programmer Names: Justin Tran
+    Date Last Updated: 4-30-2020
+    Programmer Names: Justin Tran, Corey Stock
     Description: This file displays the front-end UI that all of the razor pages share, especially
                  the top navigation bar and the footer bar
     Important Methods/Structures/Etc: <nav .. >  .... </nav>,
                                       RenderBody (in <main> ... </main>)
+        Lines 55-78: Displays the 'Logout' button or 'Login' and 'Signup'
+        buttons based on the user's login state
     Major Decisions: N/A
 -->
 
@@ -53,6 +55,9 @@
                         
                         @{
                             byte[] userbytes;
+
+                            // Checks the session to see if the user is logged
+                            // in.
                             if ( @Context.Session.TryGetValue("loggedInUser", out userbytes))
                             {
                                 string userString = Encoding.Default.GetString(userbytes);

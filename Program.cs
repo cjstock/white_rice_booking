@@ -1,11 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+/*
+    Name: Account Service
+    Date Last Updated: 4-30-2020
+    Programmer Names: Corey Stock
+    Description: This class contains the Main function, which is the entry
+                    point for the code
+    Important Methods/Structures/Etc: 
+            Functions - Main, CreateHostBuilder
+    Major Decisions: None. This file was generate by .Net Core
+*/
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace white_rice_booking
 {

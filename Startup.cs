@@ -1,9 +1,19 @@
+/*
+    Name: Startup
+    Date Last Updated: 4-30-2020
+    Programmer Names: Corey Stock, William Yung, Justin Tran
+    Description: Defines the configuration of the .Net Core project
+    Important Methods/Structures/Etc:
+        Functions - Startup, ConfigureServices, Configure
+    Major Decisions: Use Razor Pages for the front end because they
+        are the default front end for .Net Core websites. Use a collection
+        of services for the backend, so we can have a 'separation of concerns'.
+*/
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using white_rice_booking.Services;
 
 namespace white_rice_booking
@@ -22,7 +32,6 @@ namespace white_rice_booking
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
             services.AddRazorPages();
             services.AddTransient<AccountService>();
             services.AddSession();
@@ -37,18 +46,18 @@ namespace white_rice_booking
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSession();
-
             app.UseHttpsRedirection();
-            app.UseStaticFiles(); // Allows HTML, CSS, images, and JavaScript files in wwwroot 
-                                  // to be used
+
+            // Allows HTML, CSS, images, and JavaScriptfiles in wwwroot to be
+            // used
+            app.UseStaticFiles(); 
+
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
         }
