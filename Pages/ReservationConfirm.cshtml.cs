@@ -79,21 +79,7 @@ namespace white_rice_booking.Pages
 
         public void OnGet()
         { 
-            //todo: seats, date, time, depart airport, depart city, arrival airport, arrival city, billing
-
-            //calling flight information
-            /*int flightID = 539567;
-            string temp = _reservationService.FindFlightInfo(flightID);
-            string[] words = temp.Split(','); //string array output 
-
-            //Parsing the output string array back into variables
-            route_id = Int32.Parse(words[0]);
-            depart_flight_id = Int32.Parse(words[1]);
-            arrival_id = Int32.Parse(words[2]);
-            depart_airport_name = words[3];
-            depart_city_name = words[4];
-            arrival_airport_name = words[5];
-            arrival_city_name = words[6];*/
+            
         }
 
         public IActionResult OnPost()
