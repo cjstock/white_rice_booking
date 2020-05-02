@@ -8,14 +8,6 @@
     "ReservationID": 1000000
   },
   {
-    "PassengerFN": "C",
-    "PassengerLN": "D",
-    "DepartFlightID": 4444,
-    "ReturnFlightID": 5555,
-    "UserAccountID": 6666,
-    "ReservationID": 1000001
-  },
-  {
     "PassengerFN": "E",
     "PassengerLN": "F",
     "DepartFlightID": 159,
@@ -204,6 +196,47 @@
     "PassengerLN": "7",
     "DepartFlightID": 539567,
     "ReturnFlightID": 539567,
+    "UserAccountID": 159753,
+    "ReservationID": 1000000
+  },
+  {
+    "PassengerFN": "Cancel Test",
+    "PassengerLN": "Cancel Test",
+    "DepartFlightID": 111111,
+    "ReturnFlightID": 111111,
+    "UserAccountID": 159753,
+    "ReservationID": 1000000
+  },
+  {
+    "PassengerFN": "Cancel Test 2",
+    "PassengerLN": "Cancel Test 2",
+    "DepartFlightID": 123456,
+    "ReturnFlightID": 123456,
+    "UserAccountID": 159753,
+    "ReservationID": 1000000
+  },
+  {
+    "PassengerFN": "1",
+    "PassengerLN": "1",
+    "DepartFlightID": 1,
+    "ReturnFlightID": 1,
+    "UserAccountID": 159753,
+    "ReservationID": 1000000
+  },
+  {
+    "PassengerFN": "2",
+    "PassengerLN": "2",
+    "DepartFlightID": 2,
+    "ReturnFlightID": 2,
+    "UserAccountID": 159753,
+    "ReservationID": 1000000
+  }
+]},
+  {
+    "PassengerFN": "2",
+    "PassengerLN": "2",
+    "DepartFlightID": 2,
+    "ReturnFlightID": 2,
     "UserAccountID": 159753,
     "ReservationID": 1000000
   }
