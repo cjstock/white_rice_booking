@@ -1,6 +1,6 @@
 /*
     Name: Reservation Service
-    Date Last Updated: 2020-04-22
+    Date Last Updated: 2020-04-30
     Progammer Names: Timothy Bui
     Description: This class shall handle all flight reservations, including
                  creating, deleting, and modifying reservations.
@@ -33,6 +33,7 @@ namespace white_rice_booking.Services
         private static int _reservation_ID = 1000000; //increment by 1 for every new reservation created
 
         private IEnumerable<Reservation> _reservations;
+        private IEnumerable<Flights> _flights;
 
         public IWebHostEnvironment WebHostEnvironment { get; }
         
@@ -40,11 +41,12 @@ namespace white_rice_booking.Services
         {
             WebHostEnvironment = webHostEnvironment;
             _reservations = GetReservations();
+            _flights = GetFlights();
         }
 
         /*
             Name: Create
-            Date Last Updated: 2020-04-22
+            Date Last Updated: 2020-04-30
             Last Updated Progammer Name: Timothy Bui
             Description: This function creates a reservation object that is saved to the reservations.json file.
             The file consists of a passenger's first/last name as well as the flight ID(s) and user account ID.
@@ -68,8 +70,9 @@ namespace white_rice_booking.Services
             _reservations = reservationList.AsEnumerable();
             
             //Write to data
-            //decrementSeat(departID);
-            WriteToFile(JsonFileName, _reservations);
+            decrementSeat(departID);
+            decrementSeat(returnID);
+            WriteToFile(ReservationFileName, _reservations);
             return _reservations;
         }
 
@@ -90,7 +93,7 @@ namespace white_rice_booking.Services
                     var reservationList = _reservations.ToList();
                     reservationList.Remove(reservation);
                     _reservations = reservationList.AsEnumerable();
-                    WriteToFile(JsonFileName, _reservations);
+                    WriteToFile(ReservationFileName, _reservations);
                     break;
                 }
             }
@@ -122,55 +125,37 @@ namespace white_rice_booking.Services
             Cancel(reservationID);
             return null;
         }
-        /*
-            Name: Billing
-            Date Last Updated: 2020-04-22
-            Last Updated Progammer: Timothy Bui
-            Description: This function takes in user billing 
-            information when confirming a reservation purchase.
-        */
-        public ActionResult<Reservation> Billing()
-        {
-            return null;
-        }
 
+        /*
+            Name: Decrement Seat
+            Date Last Updated: 2020-04-30
+            Last Updated Progammer Name: Timothy Bui
+            Description: This function reduces the seat counter 
+            of a flight by 1 when a new reservation is created.
+        */
         public void decrementSeat(int flightID)
         {
-            using (var flight_reader = new StreamReader(FlightsFileName))
-            {
-                List<Flights> flights_list = new List<Flights>();
-                int counter = 0;
-                var records = System.Text.Json.JsonSerializer.Deserialize<Flights[]>(flight_reader.ReadToEnd());
-                foreach (var record in records)
-                {
-                    if(record.Flight_ID == flightID)
-                    {
-                        int temp = record.Seats;
-                        record.Seats = temp-1;
-                        string jsonName = File.ReadAllText("flights.json");
-                        dynamic jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonName);
-                        jsonObj["Seats"][counter] = temp-1;
-                        string output = Newtonsoft.Json.JsonConvert.SerializeObject(jsonObj, Newtonsoft.Json.Formatting.Indented);
-                        File.WriteAllText("flights.json", output);
-                    }
-                    counter++;
-                }
-            }
-            /*var jsonName = File.ReadAllText("flights.json");
-            foreach (var flight in jsonName)
+            foreach(var flight in _flights)
             {
                 if(flight.Flight_ID == flightID)
                 {
-                    dynamic jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonName);
-                    jsonObj["Seats"][0] = "299";
-                    string output = Newtonsoft.Json.JsonConvert.SerializeObject(jsonObj, Newtonsoft.Json.Formatting.Indented);
-                    File.WriteAllText("flights.json", output);
+                    var temp = flight;
+                    if (temp.Seats > 0)
+                    {
+                        temp.Seats -= 1;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                    var flightList = _flights.ToList();
+                    flightList.Remove(flight);
+                    flightList.Add(temp);
+                    _flights = flightList.AsEnumerable();
+                    WriteToFile(FlightsFileName, _flights);
+                    break;
                 }
-            }*/
-            /*dynamic jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
-            jsonObj["Seats"][0] = "299";
-            string output = Newtonsoft.Json.JsonConvert.SerializeObject(jsonObj, Newtonsoft.Json.Formatting.Indented);
-            File.WriteAllText("flights.json", output);*/
+            }
         }
 
         public void WriteToFile(string fileName, IEnumerable<object> objects)
@@ -196,23 +181,33 @@ namespace white_rice_booking.Services
         */
         public IEnumerable<Reservation> GetReservations()
         {
-            using (var jsonFileReader = File.OpenText(JsonFileName))
+            using (var jsonFileReader = File.OpenText(ReservationFileName))
             {
                 return JsonSerializer.Deserialize<Reservation[]>(jsonFileReader.ReadToEnd());
             }
         }
 
-        private string FlightsFileName
+        /*
+            Name: Get Flights
+            Date Last Updated: 2020-04-30
+            Last Updated Progammer Name: Timothy Bui
+            Description: This function creates a new IEnumerable of Flights if it doesn't exist yet.
+        */
+        public IEnumerable<Flights> GetFlights()
         {
-            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "flights.json");}
+            using (var jsonFileReader = File.OpenText(FlightsFileName))
+            {
+                return JsonSerializer.Deserialize<Flights[]>(jsonFileReader.ReadToEnd());
+            }
         }
 
-        //this property uses Path to access the database to be used by another function
-        private string JsonFileName
-        {
-            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "reservations.json"); }
-        }
-
+        /*
+            Name: Find Flight Info
+            Date Last Updated: 2020-04-30
+            Last Updated Progammer Name: Timothy Bui, Justin Tran
+            Description: This function retrieves the flight information
+            such as airport and city names given a flight ID.
+        */
         public string FindFlightInfo(int Flight_ID){
             int route_id = 0;
             int depart_id = 0;
@@ -282,12 +277,25 @@ namespace white_rice_booking.Services
             return output;
         }
 
+        // This property uses Path to access the Flights database to be used by another function.
+        private string FlightsFileName
+        {
+            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "flights.json");}
+        }
+
+        // This property uses Path to access the Reservations database to be used by another function.
+        public string ReservationFileName
+        {
+            get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "reservations.json"); }
+        }
+
+        // This property uses a path to get the airports database csv file to be used by a function.
         private string AirportFileName
         {
             get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "top_10_airports.csv"); }
         }
 
-        // This property uses a path to get the routes database csv file to be used by a function
+        // This property uses a path to get the routes database csv file to be used by a function.
         private string RouteFileName
         {
             get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "top_10_routes.csv"); }

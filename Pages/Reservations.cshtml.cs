@@ -1,6 +1,6 @@
 /*
     Name: Filter Flights Service
-    Date Last Updated: 4-30-2020
+    Date Last Updated: 5-1-2020
     Programmer Names: Timothy Bui, Justin Tran, Corey Stock
     Description: This class shall retrieve the outbound and inbound flight IDs from the 
                  Filter Flights back-end (FilterFlights.cshtml.cs), connect the front-end Reservations 
@@ -9,11 +9,12 @@
                  verify that all of the flight information is correct before finishing the
                  flight booking process.
     Important Methods/Structures/Etc: 
-            Functions - OnGet, OnPostConfirm
+            - Functions - OnGet, OnPostConfirm
     Major Decisions: 
             - Used the HttpContext session for receiving data from a different PageModel since it 
               provides easy access to the stored values (from the other PageModel)
 */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,8 +46,6 @@ namespace white_rice_booking.Pages
         [BindProperty(SupportsGet = true)]
         public int inbound_ID { get; set; } // Inbound flight ID
 
-
-
         [BindProperty(SupportsGet = true)]
         public string FirstName{ get; set; } // First name of user/passenger
         
@@ -74,8 +73,6 @@ namespace white_rice_booking.Pages
         [BindProperty(SupportsGet = true)]
         public int ZipCode{ get; set; } // Zip code of user/passenger's residence
 
-
-
         [BindProperty(SupportsGet = true)]
         public int outbound_route_id{ get; set; } // Outbound route ID (for finding airports)
 
@@ -88,7 +85,6 @@ namespace white_rice_booking.Pages
         [BindProperty(SupportsGet = true)]
         public string outbound_depart_airport_name{ get; set; } // Name of departure airport 
                                                                 // (for outbound flight)
-
         [BindProperty(SupportsGet = true)]
         public string outbound_depart_city_name{ get; set; } // City name of departure location 
                                                              // (for outbound flight)
@@ -96,13 +92,9 @@ namespace white_rice_booking.Pages
         [BindProperty(SupportsGet = true)]
         public string outbound_arrival_airport_name{ get; set; } // Name of arrival airport 
                                                                  // (for outbound flight)
-
         [BindProperty(SupportsGet = true)]
         public string outbound_arrival_city_name{ get; set; } // City name of arrival location
                                                               // (for outbound flight)
-
-        
-
         [BindProperty(SupportsGet = true)]
         public int inbound_route_id{ get; set; } // Inbound route ID (for finding airports)
 
@@ -115,21 +107,15 @@ namespace white_rice_booking.Pages
         [BindProperty(SupportsGet = true)]
         public string inbound_depart_airport_name{ get; set; } // Name of departure airport 
                                                                // (for inbound flight)
-
         [BindProperty(SupportsGet = true)]
         public string inbound_depart_city_name{ get; set; } // City name of departure location 
                                                             // (for inbound flight)
-
         [BindProperty(SupportsGet = true)]
         public string inbound_arrival_airport_name{ get; set; } // Name of arrival airport 
                                                                  // (for inbound flight)
-
         [BindProperty(SupportsGet = true)]
         public string inbound_arrival_city_name{ get; set; } // City name of arrival location
                                                               // (for inbound flight)
-
-
-
         [BindProperty(SupportsGet = true)]
         public string TripType { get; set; } // Trip type (one-way or round trip)
 
@@ -145,9 +131,18 @@ namespace white_rice_booking.Pages
         [BindProperty(SupportsGet = true)]
         public string inbound_flight_time{ get; set; } // Time of departure flight (inbound)
 
+        [BindProperty(SupportsGet = true)]
+        public int user_ID { get; set; }
 
 
-
+        /*
+            Name: OnGet
+            Date Last Updated: 4-30-2020
+            Last Updated Programmer Name: Justin Tran
+            Description: This function initializes the state needed for the 
+                         Reservations page (Reservations.cshtml) by obtaining the selected 
+                         outbound and/or inbound flight IDs and their associated flight information
+        */
         public void OnGet()
         {
             // Obtain selected outbound flight ID (in type int?) from session using key "Selected_Outbound_ID"
@@ -196,7 +191,14 @@ namespace white_rice_booking.Pages
             }
         }
 
-
+        /*
+            Name: OnPostConfirm
+            Date Last Updated: 4-30-2020
+            Last Updated Programmer Name: Justin Tran, Corey Stock, William Yung
+            Description: This function is called upon the "Confirm" button click (on the modal/popup box
+                         on the Reservation page), and stores the selected outbound 
+                         and/or inbound flights he or she wanted via flight IDs
+        */
         public IActionResult OnPostConfirm() 
         {
             // Obtain selected outbound flight ID (in type int?) from session using key "Selected_Outbound_ID"
@@ -207,15 +209,35 @@ namespace white_rice_booking.Pages
             var try_inbound_ID = HttpContext.Session.GetInt32("Selected_Inbound_ID");
             if (try_inbound_ID != null ) inbound_ID = Convert.ToInt32(try_inbound_ID);
 
-// DELETE LINE BELOW LATER!!! (REPLACE THIS LINE WITH CODE THAT OBTAINS CURRENT USER'S ID)
-            int userID = 159753;
-            _reservationService.Create(FirstName, LastName, outbound_ID, inbound_ID, userID);
+            // Obtain selected trip type (one-way or round trip) from session using key "Selected_Trip_Type"
+            TripType = HttpContext.Session.GetString("Selected_Trip_Type");
+
+            // Obtain user ID (in type int?) from session using key "userID"
+            var try_user_ID = HttpContext.Session.GetInt32("userID");
+            if (try_user_ID != null) user_ID = Convert.ToInt32(try_user_ID);
+
+            // Create reservation for chosen outbound flight
+            _reservationService.Create(FirstName, LastName, outbound_ID, inbound_ID, user_ID);
             
+            // If user chose "Round trip", then create an inbound flight reservation
+            if (TripType == "T")
+            {
+                // Create reservation for chosen inbound flight
+                _reservationService.Create(FirstName, LastName, inbound_ID, outbound_ID, user_ID);
+            }
+
             // Move user to MyTrips page after reservation and payment has been made
             return RedirectToPage("/MyTrips");
         }
     }
 }
 
+
+
+
+
+
+
+ 
 
             

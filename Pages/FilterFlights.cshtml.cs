@@ -39,7 +39,6 @@ namespace white_rice_booking.Pages
             availableOutgoingFlights = new List<Flights>(); // Empty list of available outbound flights
             availableIncomingFlights = new List<Flights>(); // Empty list of available inbound flights 
                                                             // (for roundtrips)
-            
         }
         
         [BindProperty(SupportsGet = true)]
@@ -63,7 +62,6 @@ namespace white_rice_booking.Pages
         [BindProperty(SupportsGet = true)]
         public int inbound_ID { get; set; }
 
-
         /*
             Name: OnGet
             Date Last Updated: 4-27-2020
@@ -77,7 +75,7 @@ namespace white_rice_booking.Pages
         }
         
         /*
-            Name: OnPost
+            Name: OnPostFilter
             Date Last Updated: 4-27-2020
             Last Updated Programmer Name: Justin Tran, William Yung
             Description: This function is called upon the "Submit" button click, retrieves 
