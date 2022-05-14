@@ -4,7 +4,7 @@ A flight booking website for Fly's R Us Co.
 Group members:
 Corey Stock
 Justin Tran
-William Yung - yungwilliam@csu.fullerton.edu
+William Yung
 Timothy Bui
 
 Platform(s) used: VSCode
